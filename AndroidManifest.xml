@@ -26,6 +26,34 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
+        <activity
+            android:name=".FriendsListActivity"
+            android:label="@string/title_activity_friends_list" >
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name=".GamesListActivity"
+            android:label="@string/title_activity_games_list" >
+        </activity>
+        <activity
+            android:name=".ViewGameActivity"
+            android:label="@string/title_activity_game" >
+        </activity>
+        <activity
+            android:name=".MatchFindActivity"
+            android:label="@string/title_activity_match_find" >
+        </activity>
+        <activity
+            android:name=".ViewFriendActivity"
+            android:label="@string/title_activity_view_friend" >
+        </activity>
+        <activity
+            android:name=".AddFriendActivity"
+            android:label="@string/title_activity_add_friend" >
+        </activity>
     </application>
 
 </manifest>
