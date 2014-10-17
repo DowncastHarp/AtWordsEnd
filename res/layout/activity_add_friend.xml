@@ -1,7 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -9,8 +10,60 @@
     tools:context="edu.uark.csce.mzm.atwordsend.AddFriendActivity" >
 
     <TextView
+        android:id="@+id/receivedRequestsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="@string/received_requests"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-</RelativeLayout>
+    <ListView
+        android:id="@+id/receivedRequestsListView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" >
+    </ListView>
+
+    <TextView
+        android:id="@+id/findFriendsTitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_friends"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/addFriendEditText"
+            android:layout_width="0dp"
+            android:layout_weight=".66"
+            android:layout_height="wrap_content"
+            android:inputType="textNoSuggestions"
+            android:ems="10" >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/addFriendButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".33"
+            android:text="@string/add" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/sentRequestsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sent_requests"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ListView
+        android:id="@+id/sentRequestsListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+    
+</LinearLayout>

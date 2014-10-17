@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,11 +6,52 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
     tools:context="edu.uark.csce.mzm.atwordsend.LoginActivity" >
 
     <TextView
+        android:id="@+id/usernameTitle"
+        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="@string/username"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-</RelativeLayout>
+    <EditText
+        android:id="@+id/usernameEditText"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textNoSuggestions"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/passwordTitle"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/password"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/login" />
+
+</LinearLayout>
