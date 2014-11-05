@@ -1099,7 +1099,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
-        public static final int action_settings=0x7f050059;
+        public static final int action_settings=0x7f05005d;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int addFriendButton=0x7f050040;
         public static final int addFriendEditText=0x7f05003f;
@@ -1108,6 +1108,7 @@ containing a value of this type.
         public static final int beginning=0x7f050011;
         public static final int checkbox=0x7f05002d;
         public static final int collapseActionView=0x7f05000d;
+        public static final int countdownTimer=0x7f050059;
         public static final int default_activity_button=0x7f050028;
         public static final int deleteFriendButton=0x7f050058;
         public static final int dialog=0x7f05000e;
@@ -1137,6 +1138,7 @@ containing a value of this type.
         public static final int normal=0x7f050000;
         public static final int passwordEditText=0x7f05004c;
         public static final int passwordTitle=0x7f05004b;
+        public static final int playerWordEditText=0x7f05005a;
         public static final int progress_circular=0x7f050018;
         public static final int progress_horizontal=0x7f050019;
         public static final int radio=0x7f05002f;
@@ -1161,12 +1163,14 @@ containing a value of this type.
         public static final int showHome=0x7f050004;
         public static final int showTitle=0x7f050006;
         public static final int split_action_bar=0x7f05001e;
+        public static final int submitButton=0x7f05005b;
         public static final int submit_area=0x7f050039;
         public static final int tabMode=0x7f050002;
         public static final int title=0x7f05002b;
         public static final int top_action_bar=0x7f050020;
         public static final int up=0x7f050021;
         public static final int useLogo=0x7f050003;
+        public static final int usedWords=0x7f05005c;
         public static final int usernameEditText=0x7f05004a;
         public static final int usernameTitle=0x7f050049;
         public static final int withText=0x7f05000c;
@@ -1298,7 +1302,8 @@ containing a value of this type.
         public static final int login=0x7f0a0018;
         public static final int match_find=0x7f0a001f;
         public static final int password=0x7f0a0017;
-        public static final int placeholder=0x7f0a002a;
+        public static final int placeholder=0x7f0a002b;
+        public static final int play_word=0x7f0a002a;
         public static final int received_requests=0x7f0a0025;
         public static final int score=0x7f0a0029;
         public static final int sent_requests=0x7f0a0026;

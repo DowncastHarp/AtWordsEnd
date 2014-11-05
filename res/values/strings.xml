@@ -30,6 +30,7 @@
     <string name="add_friends">Add Friends</string>
     <string name="games_list">Active Games</string>
     <string name="score">Score (W/L)</string>
+    <string name="play_word">Play Word</string>
     <string name="placeholder">-</string>
 
 </resources>
