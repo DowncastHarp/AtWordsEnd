@@ -1,9 +1,11 @@
 package edu.uark.csce.mzm.atwordsend;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MainMenuActivity extends Activity {
 
@@ -30,5 +32,25 @@ public class MainMenuActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void StartGamesListActivity(View v){
+        Intent intent = new Intent(this, GamesListActivity.class);
+        startActivity(intent);
+	}
+	
+	public void StartMatchFindActivity(View v){
+        Intent intent = new Intent(this, MatchFindActivity.class);
+        startActivity(intent);		
+	}
+	
+	public void FriendsListActivity(View v){
+        Intent intent = new Intent(this, FriendsListActivity.class);
+        startActivity(intent);		
+	}
+	
+	public void StartSettingsActivity(View v){
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);		
 	}
 }

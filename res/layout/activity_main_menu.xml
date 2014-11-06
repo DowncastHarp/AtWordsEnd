@@ -26,7 +26,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
-        android:text="@string/view_games_list" />
+        android:text="@string/view_games_list"
+        android:onClick="StartGamesListActivity" />
 
     <Button
         android:id="@+id/MatchFindButton"
@@ -35,7 +36,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
-        android:text="@string/match_find" />
+        android:text="@string/match_find"
+        android:onClick="StartMatchFindActivity" />
 
     <Button
         android:id="@+id/FriendsListButton"
@@ -44,7 +46,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
-        android:text="@string/friends_list" />
+        android:text="@string/friends_list"
+        android:onClick="FriendsListActivity" />
 
     <Button
         android:id="@+id/SettingsButton"
@@ -53,6 +56,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
-        android:text="@string/settings" />
+        android:text="@string/settings"
+        android:onClick="StartSettingsActivity" />
 
 </LinearLayout>
