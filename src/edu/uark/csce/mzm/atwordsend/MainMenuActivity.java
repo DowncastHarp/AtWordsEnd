@@ -34,22 +34,22 @@ public class MainMenuActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void StartGamesListActivity(View v){
+	public void startGamesListActivity(View v){
         Intent intent = new Intent(this, GamesListActivity.class);
         startActivity(intent);
 	}
 	
-	public void StartMatchFindActivity(View v){
+	public void startMatchFindActivity(View v){
         Intent intent = new Intent(this, MatchFindActivity.class);
         startActivity(intent);		
 	}
 	
-	public void FriendsListActivity(View v){
+	public void startFriendsListActivity(View v){
         Intent intent = new Intent(this, FriendsListActivity.class);
         startActivity(intent);		
 	}
 	
-	public void StartSettingsActivity(View v){
+	public void startSettingsActivity(View v){
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);		
 	}
