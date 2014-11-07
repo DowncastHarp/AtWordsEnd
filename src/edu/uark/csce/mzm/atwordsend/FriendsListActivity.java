@@ -34,7 +34,7 @@ public class FriendsListActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void startAddFriendActivity(){
+	public void startAddFriendActivity(View v){
         Intent intent = new Intent(this, AddFriendActivity.class);
         startActivity(intent);
 	}
