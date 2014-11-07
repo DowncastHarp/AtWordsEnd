@@ -10,13 +10,22 @@
     tools:context="edu.uark.csce.mzm.atwordsend.ViewGameActivity" >
 
     <TextView
+        android:id="@+id/opponentName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="Game With: Gary Maple."
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <TextView
         android:id="@+id/countdownTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:text="@string/placeholder"
+        android:text="14.99"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
@@ -25,7 +34,6 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:inputType="textFilter"
-        android:layout_marginBottom="20dp"
         android:ems="10" >
 
         <requestFocus />
@@ -35,13 +43,23 @@
         android:id="@+id/submitButton"
         android:layout_width="120dp"
         android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_gravity="center_horizontal"
         android:text="@string/play_word" />
 
     <ListView
         android:id="@+id/usedWords"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="0dp"
+        android:layout_weight="1" >
     </ListView>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/back" />
 
 </LinearLayout>

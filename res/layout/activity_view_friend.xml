@@ -55,6 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:onClick="close"
             android:text="@string/back" />
 
         <Button
@@ -64,6 +65,7 @@
             android:layout_above="@+id/backButton"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="25dp"
+            android:onClick="delete"
             android:text="@string/delete" />
 
     </RelativeLayout>
