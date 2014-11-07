@@ -1,9 +1,11 @@
 package edu.uark.csce.mzm.atwordsend;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class LoginActivity extends Activity {
 
@@ -11,6 +13,8 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		
+		//If we have login information stored in preferences then we need to automatically log in from create
 	}
 
 	@Override
@@ -30,5 +34,13 @@ public class LoginActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void login(View v){
+
+		//Verification done here if we didn't auto login
+		
+        Intent intent = new Intent(this, MainMenuActivity.class);
+        startActivity(intent);
 	}
 }

@@ -1,6 +1,7 @@
 package edu.uark.csce.mzm.atwordsend;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +32,11 @@ public class FriendsListActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void startAddFriendActivity(){
+        Intent intent = new Intent(this, AddFriendActivity.class);
+        startActivity(intent);
 	}
 	
 	public void close(View v){
