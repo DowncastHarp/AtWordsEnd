@@ -31,6 +31,6 @@
         android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal"
         android:text="@string/back"
-        android:onClick="Close" />
+        android:onClick="close" />
 
 </LinearLayout>

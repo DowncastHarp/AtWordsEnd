@@ -33,7 +33,7 @@ public class GamesListActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void Close(View v){
+	public void close(View v){
 		GamesListActivity.this.finish();
 	}
 }

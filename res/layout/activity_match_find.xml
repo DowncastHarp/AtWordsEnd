@@ -33,6 +33,6 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="@string/back"
-        android:onClick="Close" />
+        android:onClick="close" />
 
 </LinearLayout>

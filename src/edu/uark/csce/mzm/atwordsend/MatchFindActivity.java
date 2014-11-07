@@ -33,7 +33,7 @@ public class MatchFindActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void Close(View v){
+	public void close(View v){
 		this.finish();
 	}
 }

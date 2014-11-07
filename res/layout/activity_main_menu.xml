@@ -11,7 +11,7 @@
     tools:context="edu.uark.csce.mzm.atwordsend.MainMenuActivity" >
 
     <TextView
-        android:id="@+id/GameTitle"
+        android:id="@+id/gameTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -20,43 +20,43 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
-        android:id="@+id/ViewGamesListButton"
+        android:id="@+id/viewGamesListButton"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:text="@string/view_games_list"
-        android:onClick="StartGamesListActivity" />
+        android:onClick="startGamesListActivity" />
 
     <Button
-        android:id="@+id/MatchFindButton"
+        android:id="@+id/matchFindButton"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:text="@string/match_find"
-        android:onClick="StartMatchFindActivity" />
+        android:onClick="startMatchFindActivity" />
 
     <Button
-        android:id="@+id/FriendsListButton"
+        android:id="@+id/friendsListButton"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:text="@string/friends_list"
-        android:onClick="FriendsListActivity" />
+        android:onClick="startFriendsListActivity" />
 
     <Button
-        android:id="@+id/SettingsButton"
+        android:id="@+id/settingsButton"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:text="@string/settings"
-        android:onClick="StartSettingsActivity" />
+        android:onClick="startSettingsActivity" />
 
 </LinearLayout>

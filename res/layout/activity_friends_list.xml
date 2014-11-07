@@ -10,7 +10,7 @@
     tools:context="edu.uark.csce.mzm.atwordsend.MainMenuActivity" >
 
     <ListView
-        android:id="@+id/FriendListView"
+        android:id="@+id/friendListView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.45" >
@@ -21,19 +21,19 @@
         android:layout_height="wrap_content" >
 
         <Button
-            android:id="@+id/AddFriendButton"
+            android:id="@+id/addFriendButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/add_friend" />
 
         <Button
-            android:id="@+id/BackButton"
+            android:id="@+id/backButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/back"
-            android:onClick="Close" />
+            android:onClick="close" />
     </LinearLayout>
 
 </LinearLayout>
