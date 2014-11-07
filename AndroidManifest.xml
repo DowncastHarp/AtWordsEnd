@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login" >
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,35 +25,43 @@
         </activity>
         <activity
             android:name=".MainMenuActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".FriendsListActivity"
-            android:label="@string/title_activity_friends_list" >
+            android:label="@string/title_activity_friends_list"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings" >
+            android:label="@string/title_activity_settings"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".GamesListActivity"
-            android:label="@string/title_activity_games_list" >
+            android:label="@string/title_activity_games_list"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ViewGameActivity"
-            android:label="@string/title_activity_game" >
+            android:label="@string/title_activity_game"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".MatchFindActivity"
-            android:label="@string/title_activity_match_find" >
+            android:label="@string/title_activity_match_find"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ViewFriendActivity"
-            android:label="@string/title_activity_view_friend" >
+            android:label="@string/title_activity_view_friend"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".AddFriendActivity"
-            android:label="@string/title_activity_add_friend" >
+            android:label="@string/title_activity_add_friend"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 
