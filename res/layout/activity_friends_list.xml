@@ -10,7 +10,7 @@
     tools:context="edu.uark.csce.mzm.atwordsend.MainMenuActivity" >
 
     <ListView
-        android:id="@+id/friendListView"
+        android:id="@+id/friendsListView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.45" >

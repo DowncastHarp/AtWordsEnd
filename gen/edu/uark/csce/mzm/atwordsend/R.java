@@ -1114,9 +1114,9 @@ containing a value of this type.
         public static final int expanded_menu=0x7f05002c;
         public static final int findFriendsTitles=0x7f05003e;
         public static final int findingMatchTitle=0x7f050053;
-        public static final int friendListView=0x7f050044;
         public static final int friendName=0x7f050055;
         public static final int friendsListButton=0x7f050050;
+        public static final int friendsListView=0x7f050044;
         public static final int gameTitle=0x7f05004d;
         public static final int gamesListTitle=0x7f050045;
         public static final int gamesListView=0x7f050046;
