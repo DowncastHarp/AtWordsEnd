@@ -41,8 +41,8 @@ public class LoginActivity extends Activity {
 	public void login(View v){
 
 		//Verification done here if we didn't auto login
-        if (((EditText) findViewById(R.id.usernameEditText)).getText().toString() != "" && 
-        	((EditText) findViewById(R.id.passwordEditText)).getText().toString() != ""){
+        if (!((EditText) findViewById(R.id.usernameEditText)).getText().toString().equals("") && 
+        	!((EditText) findViewById(R.id.passwordEditText)).getText().toString().equals("")){
         	
         	this.finish();
         }
