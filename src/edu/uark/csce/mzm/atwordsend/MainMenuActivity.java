@@ -13,6 +13,9 @@ public class MainMenuActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_menu);
+		
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
 	}
 
 	@Override

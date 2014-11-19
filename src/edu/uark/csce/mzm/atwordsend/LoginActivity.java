@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 
@@ -39,8 +41,12 @@ public class LoginActivity extends Activity {
 	public void login(View v){
 
 		//Verification done here if we didn't auto login
-		
-        Intent intent = new Intent(this, MainMenuActivity.class);
-        startActivity(intent);
+        if (((EditText) findViewById(R.id.usernameEditText)).getText().toString() != "" && 
+        	((EditText) findViewById(R.id.passwordEditText)).getText().toString() != ""){
+        	
+        	this.finish();
+        }
+        else
+        	Toast.makeText(getApplicationContext(), "Something went wrong in login, try not leaving a field blank", Toast.LENGTH_LONG).show();
 	}
 }
