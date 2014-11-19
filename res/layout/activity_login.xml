@@ -54,5 +54,14 @@
         android:layout_height="wrap_content"
         android:onClick="login"
         android:text="@string/login" />
+    
+    <Button
+        android:id="@+id/createAccountButton"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:onClick="login"
+        android:text="@string/create_account" />
 
 </LinearLayout>

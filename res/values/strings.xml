@@ -32,5 +32,6 @@
     <string name="score">Score (W/L)</string>
     <string name="play_word">Play Word</string>
     <string name="placeholder">-</string>
+    <string name="create_account">Create Account</string>
 
 </resources>
