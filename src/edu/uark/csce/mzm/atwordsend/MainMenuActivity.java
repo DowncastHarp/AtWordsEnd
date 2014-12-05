@@ -23,7 +23,9 @@ public class MainMenuActivity extends Activity {
 	}
 	
 	public void startGamesListActivity(View v){
-        Intent intent = new Intent(this, GamesListActivity.class);
+        //Intent intent = new Intent(this, GamesListActivity.class);
+        Intent intent = new Intent(this, ViewGameActivity.class);
+
         startActivity(intent);
 	}
 	
