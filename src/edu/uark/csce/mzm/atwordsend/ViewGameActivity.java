@@ -31,11 +31,12 @@ public class ViewGameActivity extends Activity {
 		
 		timer = (TextView)findViewById(R.id.countdownTimer);
 		
-		CountDownTimer count = new CountDownTimer(timeLimit * 1000, 100) {
+		CountDownTimer count = new CountDownTimer(timeLimit * 1000, 10) {
 			public void onTick(long millisUntilFinished){
 				int seconds = (int) ((millisUntilFinished / 1000));
 				
-				timer.setText(Integer.toString(seconds) + "." + Long.toString(millisUntilFinished % 10));
+				String millis = Long.toString(millisUntilFinished % 1000) + "00";
+				timer.setText(Integer.toString(seconds) + "." + millis.substring(0, 2));
 			}
 			
 			public void onFinish() {
