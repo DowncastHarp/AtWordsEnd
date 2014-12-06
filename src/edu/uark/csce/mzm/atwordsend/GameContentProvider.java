@@ -15,7 +15,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 public class GameContentProvider extends ContentProvider{
-	public static final String uriString = "content://edu.uark.csce.mzm.atwordsend/Games";
+	public static final String uriString = "content://edu.uark.csce.mzm.atwordsend.GameContentProvider/Games";
 	public static final Uri CONTENT_URI = Uri.parse(uriString);
 	
 	public static final String KEY_ID = "id";
@@ -28,8 +28,8 @@ public class GameContentProvider extends ContentProvider{
 	private static final UriMatcher myUriMatcher;
 	static {
 		myUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-		myUriMatcher.addURI("com.example.homework1.Content_Provider", "Workouts", ALLROWS);
-		myUriMatcher.addURI("com.example.homework1.Content_Provider", "Workouts/#", SINGLEROW);
+		myUriMatcher.addURI("edu.uark.csce.mzm.atwordsend.GameContentProvider", "Games", ALLROWS);
+		myUriMatcher.addURI("edu.uark.csce.mzm.atwordsend.GameContentProvider", "Games/#", SINGLEROW);
 	}
 
 	@SuppressWarnings("static-access")

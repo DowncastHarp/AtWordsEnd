@@ -46,7 +46,8 @@
         <activity
             android:name=".ViewGameActivity"
             android:label="@string/title_activity_game"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait" 
+            android:windowSoftInputMode="stateUnchanged|adjustPan">
         </activity>
         <activity
             android:name=".MatchFindActivity"
@@ -61,8 +62,33 @@
         <activity
             android:name=".AddFriendActivity"
             android:label="@string/title_activity_add_friend"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait" 
+            android:windowSoftInputMode="stateUnchanged|adjustPan">
         </activity>
+        
+        <provider android:name=".SentRequestContentProvider"
+       		android:authorities="edu.uark.csce.mzm.atwordsend.SentRequestContentProvider"
+       		android:exported="false">
+        </provider>
+        
+        <!--<provider android:name=".DictionaryContentProvider"
+       			android:authorities="edu.uark.csce.mzm.atwordsend.DictionaryContentProvider"
+       			android:exported="false">
+        	</provider>-->
+        
+        <provider android:name=".FriendContentProvider"
+       		android:authorities="edu.uark.csce.mzm.atwordsend.FriendContentProvider"
+       		android:exported="false">
+        </provider>
+        
+        <provider android:name=".GameContentProvider"
+       		android:authorities="edu.uark.csce.mzm.atwordsend.GameContentProvider"
+       		android:exported="false">
+        </provider>
+        
+        <provider android:name=".RecievedRequestContentProvider"
+       		android:authorities="edu.uark.csce.mzm.atwordsend.RecievedRequestContentProvider"
+       		android:exported="false">
+        </provider>
     </application>
-
 </manifest>

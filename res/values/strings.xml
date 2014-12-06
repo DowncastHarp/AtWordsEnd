@@ -33,5 +33,6 @@
     <string name="play_word">Play Word</string>
     <string name="placeholder">-</string>
     <string name="create_account">Create Account</string>
+    <string name="deny_friend">Deny Friend</string>
 
 </resources>

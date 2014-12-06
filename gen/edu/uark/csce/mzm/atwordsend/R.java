@@ -1091,8 +1091,9 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
-        public static final int action_settings=0x7f05005e;
+        public static final int action_settings=0x7f050061;
         public static final int activity_chooser_view_content=0x7f050025;
+        public static final int addButton=0x7f05005f;
         public static final int addFriendButton=0x7f050040;
         public static final int addFriendEditText=0x7f05003f;
         public static final int always=0x7f05000b;
@@ -1105,6 +1106,7 @@ containing a value of this type.
         public static final int createAccountButton=0x7f05004c;
         public static final int default_activity_button=0x7f050028;
         public static final int deleteFriendButton=0x7f050058;
+        public static final int denyButton=0x7f050060;
         public static final int dialog=0x7f05000e;
         public static final int disableHome=0x7f050008;
         public static final int dropdown=0x7f05000f;
@@ -1138,6 +1140,7 @@ containing a value of this type.
         public static final int passwordEditText=0x7f05004a;
         public static final int passwordTitle=0x7f050049;
         public static final int playerWordEditText=0x7f05005b;
+        public static final int popupText=0x7f05005e;
         public static final int progress_circular=0x7f050018;
         public static final int progress_horizontal=0x7f050019;
         public static final int radio=0x7f05002f;
@@ -1235,7 +1238,8 @@ containing a value of this type.
         public static final int activity_settings=0x7f03001e;
         public static final int activity_view_friend=0x7f03001f;
         public static final int activity_view_game=0x7f030020;
-        public static final int support_simple_spinner_dropdown_item=0x7f030021;
+        public static final int popup_window_view=0x7f030021;
+        public static final int support_simple_spinner_dropdown_item=0x7f030022;
     }
     public static final class menu {
         public static final int add_friend=0x7f0c0000;
@@ -1297,6 +1301,7 @@ containing a value of this type.
         public static final int back=0x7f0a001a;
         public static final int create_account=0x7f0a002c;
         public static final int delete=0x7f0a0023;
+        public static final int deny_friend=0x7f0a002d;
         public static final int finding_match=0x7f0a0024;
         public static final int friends_list=0x7f0a0020;
         public static final int games_list=0x7f0a0028;
