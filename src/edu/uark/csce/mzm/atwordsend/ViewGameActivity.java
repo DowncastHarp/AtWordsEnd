@@ -35,7 +35,7 @@ public class ViewGameActivity extends Activity {
 			public void onTick(long millisUntilFinished){
 				int seconds = (int) ((millisUntilFinished / 1000));
 				
-				String millis = Long.toString(millisUntilFinished % 1000) + "00";
+				String millis = String.format("%03d", millisUntilFinished % 1000);
 				timer.setText(Integer.toString(seconds) + "." + millis.substring(0, 2));
 			}
 			
