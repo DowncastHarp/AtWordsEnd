@@ -14,8 +14,8 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
-public class AddRequestContentProvider extends ContentProvider{
-	public static final String uriString = "content://edu.uark.csce.mzm.atwordsend/AddRequests";
+public class FriendContentProvider extends ContentProvider{
+	public static final String uriString = "content://edu.uark.csce.mzm.atwordsend.FriendContentProvider/Friends";
 	public static final Uri CONTENT_URI = Uri.parse(uriString);
 	
 	public static final String KEY_ID = "id";
@@ -28,8 +28,8 @@ public class AddRequestContentProvider extends ContentProvider{
 	private static final UriMatcher myUriMatcher;
 	static {
 		myUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-		myUriMatcher.addURI("com.example.homework1.Content_Provider", "Workouts", ALLROWS);
-		myUriMatcher.addURI("com.example.homework1.Content_Provider", "Workouts/#", SINGLEROW);
+		myUriMatcher.addURI("edu.uark.csce.mzm.atwordsend.FriendContentProvider", "Friends", ALLROWS);
+		myUriMatcher.addURI("edu.uark.csce.mzm.atwordsend.FriendContentProvider", "Friends/#", SINGLEROW);
 	}
 
 	@SuppressWarnings("static-access")
@@ -141,7 +141,7 @@ public class AddRequestContentProvider extends ContentProvider{
 	private static class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
 		private static final String DATABASE_NAME = "AtWordsEnd.db";
-		private static final String DATABASE_TABLE = "AddRequests";
+		private static final String DATABASE_TABLE = "Friends";
 		private static final int DATABASE_VERSION = 1;
 		
 		private static final String DATABASE_CREATE_CMD = 
