@@ -149,7 +149,7 @@ public class DictionaryContentProvider extends ContentProvider{
 
 	private static class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
-		private static final String DATABASE_NAME = "AtWordsEnd.db";
+		private static final String DATABASE_NAME = "Dictionary.db";
 		private static final String DATABASE_TABLE = "Dictionary";
 		private static final int DATABASE_VERSION = 1;
 		
