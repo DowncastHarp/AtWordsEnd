@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 public class AddFriendActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -53,26 +54,26 @@ public class AddFriendActivity extends Activity implements LoaderManager.LoaderC
 	    ListView sentRequestsListView = (ListView) findViewById(R.id.sentRequestsListView);
 	    sentRequestsListView.setAdapter(sentRequestsAdapter);
 	    
-	    getLoaderManager().initLoader(0, null, this);
-		getLoaderManager().restartLoader(0, null, this);
-		
-	    getLoaderManager().initLoader(1, null, this);
-		getLoaderManager().restartLoader(1, null, this);
+	    getLoaderManager().restartLoader(0, null, this);
+	    getLoaderManager().restartLoader(1, null, this);
 	}
 	
-	public void sendRequest(View v){
+	public void sendRequest(View v){ 
 
 		ContentResolver cr = getContentResolver();
-		ContentValues values = new ContentValues();
-		values.put(SentRequestContentProvider.KEY_NAME, ((EditText) findViewById(R.id.addFriendEditText)).getText().toString());
-		cr.insert(SentRequestContentProvider.CONTENT_URI, values);
-		cr.insert(RecievedRequestContentProvider.CONTENT_URI, values);
-
-		//getLoaderManager().initLoader(0, null, this);
-		//getLoaderManager().restartLoader(0, null, this);
+		ContentValues sValues = new ContentValues();
+		ContentValues rValues = new ContentValues();
 		
-		//getLoaderManager().initLoader(1, null, this);
-		//getLoaderManager().restartLoader(1, null, this);
+		sValues.put(SentRequestContentProvider.KEY_NAME, ((EditText) findViewById(R.id.addFriendEditText)).getText().toString());
+		cr.insert(SentRequestContentProvider.CONTENT_URI, sValues);
+		
+		rValues.put(RecievedRequestContentProvider.KEY_NAME, ((EditText) findViewById(R.id.addFriendEditText)).getText().toString());
+		cr.insert(RecievedRequestContentProvider.CONTENT_URI, rValues);
+		
+		((EditText) findViewById(R.id.addFriendEditText)).setText(null);
+
+		getLoaderManager().restartLoader(0, null, this);
+		getLoaderManager().restartLoader(1, null, this);
 	}
 	
 	public void close(View v){
@@ -85,11 +86,12 @@ public class AddFriendActivity extends Activity implements LoaderManager.LoaderC
 		if(id == 0){
 			CursorLoader loader = new CursorLoader(this, RecievedRequestContentProvider.CONTENT_URI, null, null, null, null);
 			return loader;
-			}
-		else{
+		}
+		else if(id == 1){
 			CursorLoader loader = new CursorLoader(this, SentRequestContentProvider.CONTENT_URI, null, null, null, null);
 			return loader;
 		}
+		return null;
 	}
 
 	@Override

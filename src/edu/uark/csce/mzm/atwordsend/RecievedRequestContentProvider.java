@@ -140,14 +140,14 @@ public class RecievedRequestContentProvider extends ContentProvider{
 
 	private static class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
-		private static final String DATABASE_NAME = "AtWordsEnd.db";
+		private static final String DATABASE_NAME = "RecievedRequests.db";
 		private static final String DATABASE_TABLE = "RecievedRequests";
 		private static final int DATABASE_VERSION = 1;
 		
 		private static final String DATABASE_CREATE_CMD = 
-			"create table "+ DATABASE_TABLE + " (" + 
-			KEY_ID + " integer primary key autoincrement, " +  
-			KEY_NAME + " string not null);";
+				"create table "+ DATABASE_TABLE + " (" + 
+				KEY_ID + " integer primary key autoincrement, " +  
+				KEY_NAME + " string not null);";
 		
 		private static final String DATABASE_DROP_CMD = 
 				"drop table if it exists " + DATABASE_TABLE;

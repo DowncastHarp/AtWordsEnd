@@ -140,7 +140,7 @@ public class SentRequestContentProvider extends ContentProvider{
 
 	private static class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
-		private static final String DATABASE_NAME = "AtWordsEnd.db";
+		private static final String DATABASE_NAME = "SentRequests.db";
 		private static final String DATABASE_TABLE = "SentRequests";
 		private static final int DATABASE_VERSION = 1;
 		

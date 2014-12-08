@@ -140,7 +140,7 @@ public class FriendContentProvider extends ContentProvider{
 
 	private static class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
-		private static final String DATABASE_NAME = "AtWordsEnd.db";
+		private static final String DATABASE_NAME = "Friends.db";
 		private static final String DATABASE_TABLE = "Friends";
 		private static final int DATABASE_VERSION = 1;
 		

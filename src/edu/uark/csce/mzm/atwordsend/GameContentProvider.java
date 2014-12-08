@@ -140,7 +140,7 @@ public class GameContentProvider extends ContentProvider{
 
 	private static class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
-		private static final String DATABASE_NAME = "AtWordsEnd.db";
+		private static final String DATABASE_NAME = "Games.db";
 		private static final String DATABASE_TABLE = "Games";
 		private static final int DATABASE_VERSION = 1;
 		
