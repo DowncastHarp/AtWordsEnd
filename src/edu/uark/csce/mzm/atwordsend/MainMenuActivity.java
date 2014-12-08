@@ -33,7 +33,7 @@ public class MainMenuActivity extends Activity {
 			wurds.add(0, "Negative");
 			wurds.add(0, "Emotions");
 			wurds.add(0, "Savior");
-			wurds.add(0, "Radical");
+			wurds.add(0, "Raven");
 			
 	        intent.putExtra("ID", 1);
 	        intent.putExtra("Opponent", "Pace Halder");
