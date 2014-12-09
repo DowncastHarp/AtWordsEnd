@@ -1,9 +1,11 @@
 package edu.uark.csce.mzm.atwordsend;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.Loader;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -12,9 +14,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.database.Cursor;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
-public class ViewGameActivity extends Activity {
+public class ViewGameActivity extends Activity 
+implements LoaderManager.LoaderCallbacks<Cursor>{
 	
 	//UI Elements
 	private Button submitButton;
@@ -84,6 +95,8 @@ public class ViewGameActivity extends Activity {
 			}
 		};
 		
+		getLoaderManager().initLoader(0, null, this);
+		
 		if(myTurn){
 			count.start();
 		}
@@ -92,6 +105,24 @@ public class ViewGameActivity extends Activity {
 	//Toast toast = Toast.makeText(getApplicationContext(), "Good Job", Toast.LENGTH_SHORT);
 	//toast.show();
 	
+	//Loader class
+ 	@Override
+ 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+ 		CursorLoader loader = new CursorLoader(this, 
+ 				DictionaryContentProvider.CONTENT_URI, null, null, null, null);
+ 		return loader;
+ 	}
+
+ 	@Override
+ 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+ 		//Don't need to load anything into the UI
+ 	}
+
+ 	@Override
+ 	public void onLoaderReset(Loader<Cursor> loader) {
+ 		//
+ 	}
+	
 	public void submitWord(View v){
 
 		//Get the submitted word
@@ -99,6 +130,8 @@ public class ViewGameActivity extends Activity {
 		String playedWord = rawWord.trim().toLowerCase();
 		
 		//Check if the word exists
+		
+		
 		if(wordExists){
 			//Check if the first letter of the word matches the last letter of the previous word
 			if(game.letterComparisonCheck(playedWord)){
