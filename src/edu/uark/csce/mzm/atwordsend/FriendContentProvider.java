@@ -14,12 +14,13 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
-public class FriendCotentProvider extends ContentProvider{
-	public static final String uriString = "content://edu.uark.csce.mzm.atwordsend/Friends";
+public class FriendContentProvider extends ContentProvider{
+	public static final String uriString = "content://edu.uark.csce.mzm.atwordsend.FriendContentProvider/Friends";
 	public static final Uri CONTENT_URI = Uri.parse(uriString);
-	
-	public static final String KEY_ID = "id";
+
 	public static final String KEY_NAME = "name";
+	public static final String KEY_WINS = "wins";
+	public static final String KEY_LOSSES = "losses";
 	
 	private MySQLiteOpenHelper myOpenHelper;
 	private static final int ALLROWS = 1;
@@ -28,8 +29,8 @@ public class FriendCotentProvider extends ContentProvider{
 	private static final UriMatcher myUriMatcher;
 	static {
 		myUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-		myUriMatcher.addURI("com.example.homework1.Content_Provider", "Workouts", ALLROWS);
-		myUriMatcher.addURI("com.example.homework1.Content_Provider", "Workouts/#", SINGLEROW);
+		myUriMatcher.addURI("edu.uark.csce.mzm.atwordsend.FriendContentProvider", "Friends", ALLROWS);
+		myUriMatcher.addURI("edu.uark.csce.mzm.atwordsend.FriendContentProvider", "Friends/#", SINGLEROW);
 	}
 
 	@SuppressWarnings("static-access")
@@ -39,7 +40,7 @@ public class FriendCotentProvider extends ContentProvider{
 		switch (myUriMatcher.match(uri)) {
 			case SINGLEROW:
 				String rowID = uri.getLastPathSegment();
-				selection = KEY_ID + "=" + rowID;
+				selection = KEY_NAME + "=" + rowID;
 				if (!TextUtils.isEmpty(selection)) {
 					String appendString = " and (" + selection + ")";
 					selection += appendString;
@@ -51,6 +52,7 @@ public class FriendCotentProvider extends ContentProvider{
 		if (selection == null) {
 			selection = "1";
 		}
+		selection = KEY_NAME + "=" + uri.getLastPathSegment();
 		int deleteCount = db.delete(myOpenHelper.DATABASE_TABLE, selection, selectionArgs);
 		getContext().getContentResolver().notifyChange(uri, null);
 		return deleteCount;
@@ -107,7 +109,7 @@ public class FriendCotentProvider extends ContentProvider{
 		switch (myUriMatcher.match(uri)) {
 			case SINGLEROW:
 				String rowID = uri.getPathSegments().get(1);
-				queryBuilder.appendWhere(KEY_ID + "=" + rowID);
+				queryBuilder.appendWhere(KEY_NAME + "=" + rowID);
 			default:
 				break;
 		}
@@ -123,7 +125,7 @@ public class FriendCotentProvider extends ContentProvider{
 		switch (myUriMatcher.match(uri)) {
 			case SINGLEROW:
 				String rowID = uri.getPathSegments().get(1);
-				selection = KEY_ID + "=" + rowID;
+				selection = KEY_NAME + "=" + rowID;
 				if (!TextUtils.isEmpty(selection)) {
 					String appendString = " and (" + selection + ")";
 					selection += appendString;
@@ -131,7 +133,8 @@ public class FriendCotentProvider extends ContentProvider{
 			default:
 				break;
 		}
-		
+
+		selection = KEY_NAME + "=" + uri.getLastPathSegment();
 		int updateCount = db.update(myOpenHelper.DATABASE_TABLE, values, selection, selectionArgs);
 		getContext().getContentResolver().notifyChange(uri, null);
 		
@@ -140,14 +143,15 @@ public class FriendCotentProvider extends ContentProvider{
 
 	private static class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
-		private static final String DATABASE_NAME = "AtWordsEnd.db";
+		private static final String DATABASE_NAME = "Friends.db";
 		private static final String DATABASE_TABLE = "Friends";
 		private static final int DATABASE_VERSION = 1;
 		
 		private static final String DATABASE_CREATE_CMD = 
-			"create table "+ DATABASE_TABLE + " (" + 
-			KEY_ID + " integer primary key autoincrement, " +  
-			KEY_NAME + " string not null);";
+			"create table "+ DATABASE_TABLE + " (" +  
+			KEY_NAME + " string primary key, " + 
+			KEY_WINS + " int not null, " +
+			KEY_LOSSES + " int not null);";
 		
 		private static final String DATABASE_DROP_CMD = 
 				"drop table if it exists " + DATABASE_TABLE;
