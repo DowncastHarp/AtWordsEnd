@@ -1,7 +1,8 @@
 package edu.uark.csce.mzm.atwordsend;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,11 +18,6 @@ import android.widget.TextView;
 import android.database.Cursor;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
 public class ViewGameActivity extends Activity 
@@ -43,7 +39,9 @@ implements LoaderManager.LoaderCallbacks<Cursor>{
 	private String opponent;
 	private boolean myTurn;
 	private ArrayList<String> usedWords;
-	private boolean wordExists = true;
+	
+	//Database variables
+	private Cursor c; 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +93,7 @@ implements LoaderManager.LoaderCallbacks<Cursor>{
 			}
 		};
 		
-		getLoaderManager().initLoader(0, null, this);
+		getLoaderManager().initLoader(0, null, this);	
 		
 		if(myTurn){
 			count.start();
@@ -127,39 +125,80 @@ implements LoaderManager.LoaderCallbacks<Cursor>{
 
 		//Get the submitted word
 		String rawWord = playerWord.getText().toString();
-		String playedWord = rawWord.trim().toLowerCase();
 		
-		//Check if the word exists
-		
-		
-		if(wordExists){
-			//Check if the first letter of the word matches the last letter of the previous word
-			if(game.letterComparisonCheck(playedWord)){
-				//Check if the word has been used
-				if(!game.isWordUsed(playedWord)){
-					Toast toast = Toast.makeText(getApplicationContext(), "\"" + rawWord + "\" CONGRATULATIONS!", Toast.LENGTH_SHORT);
-					toast.show();
-				}
-				else{
-					Toast toast = Toast.makeText(getApplicationContext(), "\"" + rawWord + "\" has already been played", Toast.LENGTH_SHORT);
-					toast.show();
-					playerWord.setText("");
-				}
-			}
-			else{
-				Toast toast = Toast.makeText(getApplicationContext(), "\"" + rawWord + "\" doesn't play by the rules", Toast.LENGTH_SHORT);
-				toast.show();
-				playerWord.setText("");
-			}
-		}
-		else{
-			Toast toast = Toast.makeText(getApplicationContext(), "\"" + rawWord + "\" is not valid", Toast.LENGTH_SHORT);
+		//Check if the word is a valid play
+		if(validPlay(rawWord)){
+			//Perform end of turn functions: saving to game object, saving game info in database
+			Toast toast = Toast.makeText(getApplicationContext(), "WOW", Toast.LENGTH_SHORT);
 			toast.show();
-			playerWord.setText("");
 		}
 	}
 	
 	public void close(View v){
 		this.finish();
+	}
+	
+	public boolean validPlay(String rawString){
+		//Convert the raw string to lower case for easy matching
+		String playedWord = rawString.trim().toLowerCase();
+		
+		//Make sure the played word doesn't have any special characters
+		Pattern p = Pattern.compile("[^a-z]", Pattern.CASE_INSENSITIVE);
+		Matcher m = p.matcher(playedWord);
+		boolean b = m.find();
+		
+		if(!b){	
+			//Check if the word exists in the dictionary db
+			String[] mProjection = {DictionaryContentProvider.KEY_WORD};
+			String mSelection = DictionaryContentProvider.KEY_WORD + " = ?";
+			String[] mSelectionArgs = {playedWord};
+			String mSortOrder = null;
+			//As long as the cursor 
+			c = getContentResolver().query(DictionaryContentProvider.CONTENT_URI, mProjection, mSelection, mSelectionArgs, mSortOrder);			
+			
+			//If an error was encounterd in the query
+			if(c == null){
+				Toast toast = Toast.makeText(getApplicationContext(), "I'm so sorry. An error occured", Toast.LENGTH_SHORT);
+				toast.show();
+				playerWord.setText("");
+				return false;
+			}
+			else if(c.getCount() != 0){
+				//Check if the first letter of the word matches the last letter of the previous word
+				if(game.letterComparisonCheck(playedWord)){
+					//Check if the word has been used
+					if(!game.isWordUsed(playedWord)){
+						//Word is a valid play
+						Toast toast = Toast.makeText(getApplicationContext(), "\"" + rawString + "\" CONGRATULATIONS!", Toast.LENGTH_SHORT);
+						toast.show();
+						return true;
+					}
+					else{
+						Toast toast = Toast.makeText(getApplicationContext(), "\"" + rawString + "\" has already been played", Toast.LENGTH_SHORT);
+						toast.show();
+						playerWord.setText("");
+						return false;
+					}
+				}
+				else{
+					Toast toast = Toast.makeText(getApplicationContext(), "\"" + rawString + "\" doesn't play by the rules", Toast.LENGTH_SHORT);
+					toast.show();
+					playerWord.setText("");
+					return false;
+				}
+			}
+			else{
+				Toast toast = Toast.makeText(getApplicationContext(), "\"" + rawString + "\" is not a valid word", Toast.LENGTH_SHORT);
+				toast.show();
+				playerWord.setText("");
+				return false;
+			}
+		}
+		else{
+			Toast toast = Toast.makeText(getApplicationContext(), "\"" + rawString + "\" contains a special character\nPlease don't use special characters", Toast.LENGTH_SHORT);
+			toast.show();
+			playerWord.setText("");
+			return false;
+		}
 	}
 }
