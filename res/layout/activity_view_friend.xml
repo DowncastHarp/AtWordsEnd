@@ -67,6 +67,16 @@
             android:layout_marginBottom="25dp"
             android:onClick="delete"
             android:text="@string/delete" />
+        
+        <Button
+            android:id="@+id/startGameButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/deleteFriendButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dp"
+            android:onClick="startGame"
+            android:text="@string/start_game" />
 
     </RelativeLayout>
 

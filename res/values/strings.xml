@@ -35,5 +35,6 @@
     <string name="create_account">Create Account</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
+    <string name="start_game">Start Game</string>
 
 </resources>

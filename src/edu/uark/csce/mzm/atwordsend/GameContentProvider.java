@@ -41,7 +41,7 @@ public class GameContentProvider extends ContentProvider{
 		switch (myUriMatcher.match(uri)) {
 			case SINGLEROW:
 				String rowID = uri.getLastPathSegment();
-				selection = KEY_ID + "=" + rowID;
+				selection = KEY_OPPONENT + "=" + rowID;
 				if (!TextUtils.isEmpty(selection)) {
 					String appendString = " and (" + selection + ")";
 					selection += appendString;
@@ -53,6 +53,7 @@ public class GameContentProvider extends ContentProvider{
 		if (selection == null) {
 			selection = "1";
 		}
+		selection = KEY_OPPONENT + "=" + uri.getLastPathSegment();
 		int deleteCount = db.delete(myOpenHelper.DATABASE_TABLE, selection, selectionArgs);
 		getContext().getContentResolver().notifyChange(uri, null);
 		return deleteCount;
@@ -109,7 +110,7 @@ public class GameContentProvider extends ContentProvider{
 		switch (myUriMatcher.match(uri)) {
 			case SINGLEROW:
 				String rowID = uri.getPathSegments().get(1);
-				queryBuilder.appendWhere(KEY_ID + "=" + rowID);
+				queryBuilder.appendWhere(KEY_OPPONENT + "=" + rowID);
 			default:
 				break;
 		}
@@ -125,7 +126,7 @@ public class GameContentProvider extends ContentProvider{
 		switch (myUriMatcher.match(uri)) {
 			case SINGLEROW:
 				String rowID = uri.getPathSegments().get(1);
-				selection = KEY_ID + "=" + rowID;
+				selection = KEY_OPPONENT + "=" + rowID;
 				if (!TextUtils.isEmpty(selection)) {
 					String appendString = " and (" + selection + ")";
 					selection += appendString;
@@ -147,9 +148,8 @@ public class GameContentProvider extends ContentProvider{
 		private static final int DATABASE_VERSION = 1;
 		
 		private static final String DATABASE_CREATE_CMD = 
-			"create table "+ DATABASE_TABLE + " (" + 
-			KEY_ID + " integer primary key autoincrement, " +  
-			KEY_OPPONENT + " string not null, " +
+			"create table "+ DATABASE_TABLE + " (" +   
+			KEY_OPPONENT + " string primary key, " +
 			KEY_TURN + " boolean not null, " +
 			KEY_WORDS + " String not null);";
 		

@@ -35,6 +35,10 @@ public class ViewFriendActivity extends Activity {
 		
 	}
 	
+	public void startGame(View v){
+		
+	}
+	
 	public void delete(View v){
 
 		ContentResolver cr = getContentResolver();
