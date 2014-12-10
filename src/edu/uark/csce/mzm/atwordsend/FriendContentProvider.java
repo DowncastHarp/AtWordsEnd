@@ -17,8 +17,7 @@ import android.util.Log;
 public class FriendContentProvider extends ContentProvider{
 	public static final String uriString = "content://edu.uark.csce.mzm.atwordsend.FriendContentProvider/Friends";
 	public static final Uri CONTENT_URI = Uri.parse(uriString);
-	
-	public static final String KEY_ID = "id";
+
 	public static final String KEY_NAME = "name";
 	public static final String KEY_WINS = "wins";
 	public static final String KEY_LOSSES = "losses";
@@ -53,6 +52,7 @@ public class FriendContentProvider extends ContentProvider{
 		if (selection == null) {
 			selection = "1";
 		}
+		selection = KEY_NAME + "=" + uri.getLastPathSegment();
 		int deleteCount = db.delete(myOpenHelper.DATABASE_TABLE, selection, selectionArgs);
 		getContext().getContentResolver().notifyChange(uri, null);
 		return deleteCount;
@@ -149,8 +149,8 @@ public class FriendContentProvider extends ContentProvider{
 		
 		private static final String DATABASE_CREATE_CMD = 
 			"create table "+ DATABASE_TABLE + " (" +  
-			KEY_NAME + " string primary key " + 
-			KEY_WINS + " int not null " +
+			KEY_NAME + " string primary key, " + 
+			KEY_WINS + " int not null, " +
 			KEY_LOSSES + " int not null);";
 		
 		private static final String DATABASE_DROP_CMD = 

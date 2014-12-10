@@ -13,10 +13,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class FriendsListActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
 
+	private static final int FRIEND_ACTIVITY = 1;
 	private ArrayList<Friend> friends;
 	private FriendsAdapter friendsAdapter;
 	
@@ -30,11 +32,36 @@ public class FriendsListActivity extends Activity implements LoaderManager.Loade
 		
 	    ListView listView = (ListView) findViewById(R.id.friendsListView);
 	    listView.setAdapter(friendsAdapter);
+	    
+	    listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+	    	@Override
+	    	public void onItemClick(AdapterView<?> parent, final View view, int pos, long id){
+	    		final Friend item = (Friend) parent.getItemAtPosition(pos);
+
+	    		Intent intent = new Intent(FriendsListActivity.this, ViewFriendActivity.class);
+	    		intent.putExtra("Name", item.getName());
+	    		startActivityForResult(intent, FRIEND_ACTIVITY);
+	    	}
+	    });
+	    
+		getLoaderManager().restartLoader(0, null, this);
 	}
 	
 	public void startAddFriendActivity(View v){
         Intent intent = new Intent(this, AddFriendActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 0);
+	}
+	
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		getLoaderManager().restartLoader(0, null, this);
+		switch(resultCode){
+			case FRIEND_ACTIVITY:
+				getLoaderManager().restartLoader(0, null, this);
+				break;
+			
+			default:
+				break;
+		}
 	}
 	
 	public void close(View v){
@@ -68,7 +95,6 @@ public class FriendsListActivity extends Activity implements LoaderManager.Loade
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
-		// TODO Auto-generated method stub
 		
 	}
 }

@@ -72,7 +72,7 @@ public class AddFriendActivity extends Activity implements LoaderManager.LoaderC
 	            		Values.put(FriendContentProvider.KEY_LOSSES, 0);
 	            		cr.insert(FriendContentProvider.CONTENT_URI, Values);
 	            		
-	                	cr.delete(RecievedRequestContentProvider.CONTENT_URI.buildUpon().appendPath(item).build(), null, null);
+	                	cr.delete(RecievedRequestContentProvider.CONTENT_URI.buildUpon().appendPath("'" + item + "'").build(), null, null);
 	                	getLoaderManager().restartLoader(0, null, AddFriendActivity.this);
 	                	
 	                	popup.dismiss();
