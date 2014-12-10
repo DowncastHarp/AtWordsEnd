@@ -23,22 +23,36 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
-		//read in the dictionary thing oh god please work
-		Scanner sc = null;
-		ContentResolver cr = getContentResolver();
-		ContentValues values = new ContentValues();	
-		try{
-			sc = new Scanner(new File("dict.txt"));
-			while (sc.hasNextLine()) {
-				String word = sc.nextLine();
-				values.put(word, word);
-				//cr.insert(DictionaryContentProvider.CONTENT_URI, values);
-	      	}
-			sc.close();
+		//is there anything in the table?
+		String[] mProjection = new String[] {DictionaryContentProvider.KEY_WORD};
+		String mSelection = DictionaryContentProvider.KEY_WORD + " IS NOT NULL";
+		String[] mSelectionArgs = new String[] {""};
+		String mSortOrder = null;
+		Cursor c;
+		c = dictionaryDB.rawQuery("SELECT COUNT(*) FROM Dictionary", null);
+		c.moveToFirst();
+		Log.d("Done", Integer.toString(c.getInt (0)));
+		
+		if (c != null) {
+		    c.moveToFirst();                       // Always one row returned.
+		    if (c.getInt (0) == 0) {            // Zero count means empty table.
+				makeDictionary();
+		    }
 		}
-		catch(FileNotFoundException ex){
-			Log.w("DICTIONARYPROVIDER", "Couldn't open file dict.txt");
-		}
+		c = dictionaryDB.rawQuery("SELECT COUNT(*) FROM Dictionary", null);
+		c.moveToFirst();
+		Log.d("Done", Integer.toString(c.getInt (0)));
+		
+		
+		//	Toast.makeText(getApplicationContext(), "already made", Toast.LENGTH_LONG).show();
+		//testing to see if it added things to db
+	/*	mProjection = {"KEY_WORD"};
+		mSelection = "KEY_WORD = ?";
+		mSelectionArgs = {"equivalence"};
+		mSortOrder = null;
+		c = getContentResolver().query(DictionaryContentProvider.CONTENT_URI, mProjection, mSelection, mSelectionArgs, mSortOrder);
+		Toast.makeText(getApplicationContext(), "", Toast.LENGTH_LONG).show();
+		*/
 	}
 
 	@Override
