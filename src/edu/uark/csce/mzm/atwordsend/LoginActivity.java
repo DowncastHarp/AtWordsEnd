@@ -50,10 +50,7 @@ public class LoginActivity extends Activity {
 				KEY_WORD + " string primary key not null);");
 		
 		//is there anything in the table?
-		String[] mProjection = new String[] {DictionaryContentProvider.KEY_WORD};
-		String mSelection = DictionaryContentProvider.KEY_WORD + " IS NOT NULL";
-		String[] mSelectionArgs = new String[] {""};
-		String mSortOrder = null;
+		//made a change
 		Cursor c;
 		c = dictionaryDB.rawQuery("SELECT COUNT(*) FROM Dictionary", null);
 		c.moveToFirst();
@@ -68,17 +65,6 @@ public class LoginActivity extends Activity {
 		c = dictionaryDB.rawQuery("SELECT COUNT(*) FROM Dictionary", null);
 		c.moveToFirst();
 		Log.d("Done", Integer.toString(c.getInt (0)));
-		
-		
-		//	Toast.makeText(getApplicationContext(), "already made", Toast.LENGTH_LONG).show();
-		//testing to see if it added things to db
-	/*	mProjection = {"KEY_WORD"};
-		mSelection = "KEY_WORD = ?";
-		mSelectionArgs = {"equivalence"};
-		mSortOrder = null;
-		c = getContentResolver().query(DictionaryContentProvider.CONTENT_URI, mProjection, mSelection, mSelectionArgs, mSortOrder);
-		Toast.makeText(getApplicationContext(), "", Toast.LENGTH_LONG).show();
-		*/
 	}
 
 	@Override
