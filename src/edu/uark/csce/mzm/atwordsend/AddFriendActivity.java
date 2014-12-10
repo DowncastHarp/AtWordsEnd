@@ -1,20 +1,27 @@
 package edu.uark.csce.mzm.atwordsend;
 
 import java.util.ArrayList;
+
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class AddFriendActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -41,10 +48,52 @@ public class AddFriendActivity extends Activity implements LoaderManager.LoaderC
 	    	public void onItemClick(AdapterView<?> parent, final View view, int pos, long id){
 	    		final String item = (String) parent.getItemAtPosition(pos);
 	    		
-	    		PopupWindow popup = new PopupWindow(getApplicationContext());
-	    		popup.setHeight(50);
-	    		popup.setWidth(100);
-	    		popup.setContentView(findViewById(R.layout.popup_window_view));
+	    		LayoutInflater layoutInflater  = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);  
+	    		View popupView = layoutInflater.inflate(R.layout.popup_window_view, null);  
+	    		
+	    		final PopupWindow popup = new PopupWindow(AddFriendActivity.this);
+	    		popup.setContentView(popupView);
+	    	    popup.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
+	    	    popup.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
+	    	    popup.setFocusable(true);
+
+	    		((TextView) popup.getContentView().findViewById(R.id.popupText)).setText("Do you want to add " + item + " as a friend?");
+	    	
+	    		popup.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+	    		
+	    		((Button) popup.getContentView().findViewById(R.id.yesButton)).setOnClickListener(new View.OnClickListener() {
+	                public void onClick(View v) {
+	                	//add them to friends database
+	                	ContentResolver cr = getContentResolver();
+	            		ContentValues Values = new ContentValues();
+	            		
+	            		Values.put(FriendContentProvider.KEY_NAME, item);
+	            		Values.put(FriendContentProvider.KEY_WINS, 0);
+	            		Values.put(FriendContentProvider.KEY_LOSSES, 0);
+	            		cr.insert(FriendContentProvider.CONTENT_URI, Values);
+	            		
+	                	cr.delete(RecievedRequestContentProvider.CONTENT_URI.buildUpon().appendPath(item).build(), null, null);
+	                	getLoaderManager().restartLoader(0, null, AddFriendActivity.this);
+	                	
+	                	popup.dismiss();
+	                }
+	            });
+	    		
+	    		((Button) popup.getContentView().findViewById(R.id.noButton)).setOnClickListener(new View.OnClickListener() {
+	                public void onClick(View v) {
+	                	//remove them from recievedRequests database and list
+	        			ContentResolver cr = getContentResolver();
+	                	cr.delete(RecievedRequestContentProvider.CONTENT_URI.buildUpon().appendPath("'" + item + "'").build(), null, null);
+	                	getLoaderManager().restartLoader(0, null, AddFriendActivity.this);
+	                	popup.dismiss();
+	                }
+	            });
+	    		
+	    		((Button) popup.getContentView().findViewById(R.id.backButton)).setOnClickListener(new View.OnClickListener() {
+	                public void onClick(View v) {
+	                	popup.dismiss();
+	                }
+	            });
 	    	}
 	    });
 	    

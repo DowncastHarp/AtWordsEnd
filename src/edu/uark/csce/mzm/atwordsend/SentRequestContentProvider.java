@@ -39,7 +39,7 @@ public class SentRequestContentProvider extends ContentProvider{
 		switch (myUriMatcher.match(uri)) {
 			case SINGLEROW:
 				String rowID = uri.getLastPathSegment();
-				selection = KEY_ID + "=" + rowID;
+				selection = KEY_NAME + "=" + rowID;
 				if (!TextUtils.isEmpty(selection)) {
 					String appendString = " and (" + selection + ")";
 					selection += appendString;
@@ -107,7 +107,7 @@ public class SentRequestContentProvider extends ContentProvider{
 		switch (myUriMatcher.match(uri)) {
 			case SINGLEROW:
 				String rowID = uri.getPathSegments().get(1);
-				queryBuilder.appendWhere(KEY_ID + "=" + rowID);
+				queryBuilder.appendWhere(KEY_NAME + "=" + rowID);
 			default:
 				break;
 		}
@@ -123,7 +123,7 @@ public class SentRequestContentProvider extends ContentProvider{
 		switch (myUriMatcher.match(uri)) {
 			case SINGLEROW:
 				String rowID = uri.getPathSegments().get(1);
-				selection = KEY_ID + "=" + rowID;
+				selection = KEY_NAME + "=" + rowID;
 				if (!TextUtils.isEmpty(selection)) {
 					String appendString = " and (" + selection + ")";
 					selection += appendString;
@@ -132,6 +132,7 @@ public class SentRequestContentProvider extends ContentProvider{
 				break;
 		}
 		
+		selection = KEY_NAME + "=" + uri.getLastPathSegment();
 		int updateCount = db.update(myOpenHelper.DATABASE_TABLE, values, selection, selectionArgs);
 		getContext().getContentResolver().notifyChange(uri, null);
 		
@@ -145,9 +146,8 @@ public class SentRequestContentProvider extends ContentProvider{
 		private static final int DATABASE_VERSION = 1;
 		
 		private static final String DATABASE_CREATE_CMD = 
-			"create table "+ DATABASE_TABLE + " (" + 
-			KEY_ID + " integer primary key autoincrement, " +  
-			KEY_NAME + " string not null);";
+			"create table "+ DATABASE_TABLE + " (" +  
+			KEY_NAME + " string primary key);";
 		
 		private static final String DATABASE_DROP_CMD = 
 				"drop table if it exists " + DATABASE_TABLE;

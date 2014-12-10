@@ -1093,7 +1093,6 @@ containing a value of this type.
         public static final int action_mode_close_button=0x7f050024;
         public static final int action_settings=0x7f050061;
         public static final int activity_chooser_view_content=0x7f050025;
-        public static final int addButton=0x7f05005f;
         public static final int addFriendButton=0x7f050040;
         public static final int addFriendEditText=0x7f05003f;
         public static final int always=0x7f05000b;
@@ -1106,7 +1105,6 @@ containing a value of this type.
         public static final int createAccountButton=0x7f05004c;
         public static final int default_activity_button=0x7f050028;
         public static final int deleteFriendButton=0x7f050058;
-        public static final int denyButton=0x7f050060;
         public static final int dialog=0x7f05000e;
         public static final int disableHome=0x7f050008;
         public static final int dropdown=0x7f05000f;
@@ -1134,6 +1132,7 @@ containing a value of this type.
         public static final int matchFindProgressBar=0x7f050052;
         public static final int middle=0x7f050012;
         public static final int never=0x7f050009;
+        public static final int noButton=0x7f050060;
         public static final int none=0x7f050010;
         public static final int normal=0x7f050000;
         public static final int opponentName=0x7f050059;
@@ -1178,6 +1177,7 @@ containing a value of this type.
         public static final int usernameTitle=0x7f050047;
         public static final int viewGamesListButton=0x7f05004e;
         public static final int withText=0x7f05000c;
+        public static final int yesButton=0x7f05005f;
     }
     public static final class integer {
         /**  The maximum number of action buttons that should be permitted within
@@ -1238,8 +1238,9 @@ containing a value of this type.
         public static final int activity_settings=0x7f03001e;
         public static final int activity_view_friend=0x7f03001f;
         public static final int activity_view_game=0x7f030020;
-        public static final int popup_window_view=0x7f030021;
-        public static final int support_simple_spinner_dropdown_item=0x7f030022;
+        public static final int friend_view=0x7f030021;
+        public static final int popup_window_view=0x7f030022;
+        public static final int support_simple_spinner_dropdown_item=0x7f030023;
     }
     public static final class menu {
         public static final int add_friend=0x7f0c0000;
@@ -1301,13 +1302,13 @@ containing a value of this type.
         public static final int back=0x7f0a001a;
         public static final int create_account=0x7f0a002c;
         public static final int delete=0x7f0a0023;
-        public static final int deny_friend=0x7f0a002d;
         public static final int finding_match=0x7f0a0024;
         public static final int friends_list=0x7f0a0020;
         public static final int games_list=0x7f0a0028;
         public static final int hello_world=0x7f0a000e;
         public static final int login=0x7f0a0018;
         public static final int match_find=0x7f0a001f;
+        public static final int no=0x7f0a002d;
         public static final int password=0x7f0a0017;
         public static final int placeholder=0x7f0a002b;
         public static final int play_word=0x7f0a002a;
@@ -1326,6 +1327,7 @@ containing a value of this type.
         public static final int title_game=0x7f0a001d;
         public static final int username=0x7f0a0016;
         public static final int view_games_list=0x7f0a001e;
+        public static final int yes=0x7f0a002e;
     }
     public static final class style {
         /** 

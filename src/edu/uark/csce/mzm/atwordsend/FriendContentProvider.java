@@ -20,6 +20,8 @@ public class FriendContentProvider extends ContentProvider{
 	
 	public static final String KEY_ID = "id";
 	public static final String KEY_NAME = "name";
+	public static final String KEY_WINS = "wins";
+	public static final String KEY_LOSSES = "losses";
 	
 	private MySQLiteOpenHelper myOpenHelper;
 	private static final int ALLROWS = 1;
@@ -39,7 +41,7 @@ public class FriendContentProvider extends ContentProvider{
 		switch (myUriMatcher.match(uri)) {
 			case SINGLEROW:
 				String rowID = uri.getLastPathSegment();
-				selection = KEY_ID + "=" + rowID;
+				selection = KEY_NAME + "=" + rowID;
 				if (!TextUtils.isEmpty(selection)) {
 					String appendString = " and (" + selection + ")";
 					selection += appendString;
@@ -107,7 +109,7 @@ public class FriendContentProvider extends ContentProvider{
 		switch (myUriMatcher.match(uri)) {
 			case SINGLEROW:
 				String rowID = uri.getPathSegments().get(1);
-				queryBuilder.appendWhere(KEY_ID + "=" + rowID);
+				queryBuilder.appendWhere(KEY_NAME + "=" + rowID);
 			default:
 				break;
 		}
@@ -123,7 +125,7 @@ public class FriendContentProvider extends ContentProvider{
 		switch (myUriMatcher.match(uri)) {
 			case SINGLEROW:
 				String rowID = uri.getPathSegments().get(1);
-				selection = KEY_ID + "=" + rowID;
+				selection = KEY_NAME + "=" + rowID;
 				if (!TextUtils.isEmpty(selection)) {
 					String appendString = " and (" + selection + ")";
 					selection += appendString;
@@ -131,7 +133,8 @@ public class FriendContentProvider extends ContentProvider{
 			default:
 				break;
 		}
-		
+
+		selection = KEY_NAME + "=" + uri.getLastPathSegment();
 		int updateCount = db.update(myOpenHelper.DATABASE_TABLE, values, selection, selectionArgs);
 		getContext().getContentResolver().notifyChange(uri, null);
 		
@@ -145,9 +148,10 @@ public class FriendContentProvider extends ContentProvider{
 		private static final int DATABASE_VERSION = 1;
 		
 		private static final String DATABASE_CREATE_CMD = 
-			"create table "+ DATABASE_TABLE + " (" + 
-			KEY_ID + " integer primary key autoincrement, " +  
-			KEY_NAME + " string not null);";
+			"create table "+ DATABASE_TABLE + " (" +  
+			KEY_NAME + " string primary key " + 
+			KEY_WINS + " int not null " +
+			KEY_LOSSES + " int not null);";
 		
 		private static final String DATABASE_DROP_CMD = 
 				"drop table if it exists " + DATABASE_TABLE;

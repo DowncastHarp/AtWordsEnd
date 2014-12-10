@@ -3,7 +3,11 @@ package edu.uark.csce.mzm.atwordsend;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 public class FriendsAdapter extends ArrayAdapter<Friend>{
 
@@ -16,21 +20,15 @@ public class FriendsAdapter extends ArrayAdapter<Friend>{
 		friendsArrayList = friends;
 	}
 
-	//@Override
-	//public View getView(int position, View convertView, ViewGroup parent) {
-	
-        /* Stuff from Matthew's homework1 to be used as a reference later
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
 
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.row, parent, false);
+        View rowView = inflater.inflate(R.layout.friend_view, parent, false);
         
-        TextView labelNameView = (TextView) rowView.findViewById(R.id.labelName);
-        labelNameView.setText(workoutArrayList.get(position).getName());
-
-		SimpleDateFormat formatDate = new SimpleDateFormat("MM/dd/yyyy");
-        TextView labelDateView = (TextView) rowView.findViewById(R.id.labelDate);
-        labelDateView.setText(formatDate.format(workoutArrayList.get(position).getDate()));
+        TextView labelNameView = (TextView) rowView.findViewById(R.id.friendName);
+        labelNameView.setText(friendsArrayList.get(position).getName());
 		
-        return rowView;*/
-	//}
+        return rowView;
+	}
 }
