@@ -116,7 +116,7 @@ public class DictionaryContentProvider extends ContentProvider{
 		switch (myUriMatcher.match(uri)) {
 			case SINGLEROW:
 				String rowID = uri.getPathSegments().get(1);
-				queryBuilder.appendWhere(KEY_ID + "=" + rowID);
+				queryBuilder.appendWhere(KEY_WORD + "=" + rowID);
 			default:
 				break;
 		}
@@ -154,11 +154,12 @@ public class DictionaryContentProvider extends ContentProvider{
 		private static final int DATABASE_VERSION = 1;
 		
 		private static final String DATABASE_CREATE_CMD = 
-			"create table "+ DATABASE_TABLE + " (" + 
+			"create table if not exists "+ DATABASE_TABLE + " (" + 
+			//KEY_ID + " integer primary key autoincrement, "+
 			KEY_WORD + " string primary key not null);";
 		
 		private static final String DATABASE_DROP_CMD = 
-				"drop table if it exists " + DATABASE_TABLE;
+				"drop table " + DATABASE_TABLE;
 		
 		public MySQLiteOpenHelper(Context context, String name, 
 				CursorFactory factory, int version) {
