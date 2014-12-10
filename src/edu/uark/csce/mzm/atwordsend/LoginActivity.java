@@ -32,7 +32,7 @@ public class LoginActivity extends Activity {
 			while (sc.hasNextLine()) {
 				String word = sc.nextLine();
 				values.put(word, word);
-				cr.insert(AddRequestContentProvider.CONTENT_URI, values);
+				//cr.insert(DictionaryContentProvider.CONTENT_URI, values);
 	      	}
 			sc.close();
 		}

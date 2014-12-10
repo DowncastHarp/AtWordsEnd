@@ -20,6 +20,8 @@ public class GameContentProvider extends ContentProvider{
 	
 	public static final String KEY_ID = "id";
 	public static final String KEY_OPPONENT = "opponent";
+	public static final String KEY_TURN = "turn";
+	public static final String KEY_WORDS = "words";
 	
 	private MySQLiteOpenHelper myOpenHelper;
 	private static final int ALLROWS = 1;
@@ -147,7 +149,9 @@ public class GameContentProvider extends ContentProvider{
 		private static final String DATABASE_CREATE_CMD = 
 			"create table "+ DATABASE_TABLE + " (" + 
 			KEY_ID + " integer primary key autoincrement, " +  
-			KEY_OPPONENT + " string not null);";
+			KEY_OPPONENT + " string not null, " +
+			KEY_TURN + " boolean not null, " +
+			KEY_WORDS + " String not null);";
 		
 		private static final String DATABASE_DROP_CMD = 
 				"drop table if it exists " + DATABASE_TABLE;
@@ -164,7 +168,7 @@ public class GameContentProvider extends ContentProvider{
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			Log.w("WORKOUTPROVIDER", "Upgrading from version " + oldVersion +
+			Log.w("GAMEPROVIDER", "Upgrading from version " + oldVersion +
 				" to " + newVersion + ". All data will be deleted."
 				);
 			db.execSQL(DATABASE_DROP_CMD);

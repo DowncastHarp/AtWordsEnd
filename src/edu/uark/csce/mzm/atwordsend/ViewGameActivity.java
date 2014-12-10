@@ -5,6 +5,8 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
@@ -28,9 +30,11 @@ implements LoaderManager.LoaderCallbacks<Cursor>{
 	private Button backButton;
 	private TextView opponentInfo;
 	private TextView timer;
+	private TextView lastWordPlayedView;
 	private ListView usedWordsList;
 	private EditText playerWord;
 	private ArrayAdapter<String> wordArrayAdapter;
+	private CountDownTimer count;
 
 	//Variables
 	private int timeLimit = 15;
@@ -63,6 +67,7 @@ implements LoaderManager.LoaderCallbacks<Cursor>{
 		backButton = (Button)findViewById(R.id.backButton);
 		opponentInfo = (TextView)findViewById(R.id.opponentName);
 		timer = (TextView)findViewById(R.id.countdownTimer);
+		lastWordPlayedView = (TextView)findViewById(R.id.lastPlayedWordView);
 		usedWordsList = (ListView)findViewById(R.id.usedWordsList);
 		playerWord = (EditText)findViewById(R.id.playerWordEditText);
 		
@@ -71,7 +76,14 @@ implements LoaderManager.LoaderCallbacks<Cursor>{
 		wordArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, usedWords);
 		usedWordsList.setAdapter(wordArrayAdapter);
 		
-		CountDownTimer count = new CountDownTimer(timeLimit * 1000, 10) {
+		if(!game.getUsedWords().isEmpty()){
+			lastWordPlayedView.setText("Last Word Played: " + game.getUsedWords().get(0));
+		}
+		else{
+			lastWordPlayedView.setText("Start With a New Word!");
+		}
+		
+		count = new CountDownTimer(timeLimit * 1000, 10) {
 			public void onTick(long millisUntilFinished){
 				int seconds = (int) ((millisUntilFinished / 1000));
 				
@@ -131,6 +143,35 @@ implements LoaderManager.LoaderCallbacks<Cursor>{
 			//Perform end of turn functions: saving to game object, saving game info in database
 			Toast toast = Toast.makeText(getApplicationContext(), "WOW", Toast.LENGTH_SHORT);
 			toast.show();
+			
+			ContentResolver cr = getContentResolver();
+			
+			//Add the word to the game object and used words array list
+			//usedWords.add(0, rawWord);
+			game.addWord(rawWord);
+			
+			//------------------Update UI Elements------------------
+			//Notify the array adapter that the data changed and to update the used words listivew
+			wordArrayAdapter.notifyDataSetChanged();
+			lastWordPlayedView.setText("Last Word Played: " + game.getUsedWords().get(0));
+			
+			count.cancel();
+			
+			playerWord.setEnabled(false);
+			//------------------------------------------------------
+			
+			String usedWordsString = "";
+			
+			for(int i = 0; i < game.getUsedWords().size(); i++){
+				usedWordsString += game.getUsedWords().get(i) + " ";
+			}
+			//Save the game to the database
+			//ContentValues newValues = new ContentValues();
+			
+			//newValues.put(GameContentProvider.KEY_TURN, !myTurn);
+			//newValues.put(GameContentProvider.KEY_WORDS, usedWordsString);
+			
+			//cr.update(GameContentProvider.CONTENT_URI, newValues, GameContentProvider.KEY_ID + " = ?", new String[]{Integer.toString(id)});
 		}
 	}
 	
@@ -147,11 +188,12 @@ implements LoaderManager.LoaderCallbacks<Cursor>{
 		Matcher m = p.matcher(playedWord);
 		boolean b = m.find();
 		
-		if(!b){	
+		if(!b){
+			/*
 			//Check if the word exists in the dictionary db
-			String[] mProjection = {DictionaryContentProvider.KEY_WORD};
+			String[] mProjection = new String[]{DictionaryContentProvider.KEY_WORD};
 			String mSelection = DictionaryContentProvider.KEY_WORD + " = ?";
-			String[] mSelectionArgs = {playedWord};
+			String[] mSelectionArgs = new String[]{playedWord};
 			String mSortOrder = null;
 			//As long as the cursor 
 			c = getContentResolver().query(DictionaryContentProvider.CONTENT_URI, mProjection, mSelection, mSelectionArgs, mSortOrder);			
@@ -163,7 +205,8 @@ implements LoaderManager.LoaderCallbacks<Cursor>{
 				playerWord.setText("");
 				return false;
 			}
-			else if(c.getCount() != 0){
+			*/
+			/*else*/ if(true/*c.getCount() != 0*/){
 				//Check if the first letter of the word matches the last letter of the previous word
 				if(game.letterComparisonCheck(playedWord)){
 					//Check if the word has been used
@@ -193,7 +236,7 @@ implements LoaderManager.LoaderCallbacks<Cursor>{
 				playerWord.setText("");
 				return false;
 			}
-		}
+		}	
 		else{
 			Toast toast = Toast.makeText(getApplicationContext(), "\"" + rawString + "\" contains a special character\nPlease don't use special characters", Toast.LENGTH_SHORT);
 			toast.show();
