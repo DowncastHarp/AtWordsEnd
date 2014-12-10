@@ -3,33 +3,22 @@ package edu.uark.csce.mzm.atwordsend;
 import java.util.ArrayList;
 
 public class Game {
-	private int id;
 	private String opponent;
 	private boolean myTurn;
 	private ArrayList<String> usedWords;
 	
 	public Game(){
-		this.id = -1;
 		this.opponent = "";
 		this.myTurn = false;
 		this.usedWords = new ArrayList<String>();
 	}
 	
-	public Game(int id, String opponent, boolean myTurn, ArrayList<String> usedWords){
-		this.id = id;
+	public Game(String opponent, boolean myTurn, ArrayList<String> usedWords){
 		this.opponent = opponent;
 		this.myTurn = myTurn;
 		this.usedWords = usedWords;
 	}
-	
-	public int getId(){
-		return id;
-	}
-	
-	public void setId(int id){
-		this.id = id;
-	}
-	
+
 	public String getOpponent(){
 		return opponent;
 	}

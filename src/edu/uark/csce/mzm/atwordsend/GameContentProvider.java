@@ -18,7 +18,6 @@ public class GameContentProvider extends ContentProvider{
 	public static final String uriString = "content://edu.uark.csce.mzm.atwordsend.GameContentProvider/Games";
 	public static final Uri CONTENT_URI = Uri.parse(uriString);
 	
-	public static final String KEY_ID = "id";
 	public static final String KEY_OPPONENT = "opponent";
 	public static final String KEY_TURN = "turn";
 	public static final String KEY_WORDS = "words";
