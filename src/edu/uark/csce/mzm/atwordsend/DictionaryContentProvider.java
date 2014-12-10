@@ -1,6 +1,11 @@
 package edu.uark.csce.mzm.atwordsend;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -13,27 +18,28 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.EditText;
 
-public class GameContentProvider extends ContentProvider{
-	public static final String uriString = "content://edu.uark.csce.mzm.atwordsend.GameContentProvider/Games";
+public class DictionaryContentProvider extends ContentProvider{
+	public static final String uriString = "content://edu.uark.csce.mzm.atwordsend.DictionaryContentProvider/Words";
 	public static final Uri CONTENT_URI = Uri.parse(uriString);
 	
 	public static final String KEY_ID = "id";
-	public static final String KEY_OPPONENT = "opponent";
-	public static final String KEY_TURN = "turn";
-	public static final String KEY_WORDS = "words";
+	public static final String KEY_WORD = "word";
 	
 	private MySQLiteOpenHelper myOpenHelper;
 	private static final int ALLROWS = 1;
 	private static final int SINGLEROW = 2;
 	
 	private static final UriMatcher myUriMatcher;
+	
 	static {
 		myUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-		myUriMatcher.addURI("edu.uark.csce.mzm.atwordsend.GameContentProvider", "Games", ALLROWS);
-		myUriMatcher.addURI("edu.uark.csce.mzm.atwordsend.GameContentProvider", "Games/#", SINGLEROW);
+		myUriMatcher.addURI("edu.uark.csce.mzm.atwordsend.DictionaryContentProvider", "Words", ALLROWS);
+		myUriMatcher.addURI("edu.uark.csce.mzm.atwordsend.DictionaryContentProvider", "Words/#", SINGLEROW);
 	}
 
+	
 	@SuppressWarnings("static-access")
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
@@ -41,7 +47,8 @@ public class GameContentProvider extends ContentProvider{
 		switch (myUriMatcher.match(uri)) {
 			case SINGLEROW:
 				String rowID = uri.getLastPathSegment();
-				selection = KEY_ID + "=" + rowID;
+				//If we ever want to delete good luck we need to change this i think
+				selection = KEY_WORD + "=" + rowID;
 				if (!TextUtils.isEmpty(selection)) {
 					String appendString = " and (" + selection + ")";
 					selection += appendString;
@@ -125,7 +132,7 @@ public class GameContentProvider extends ContentProvider{
 		switch (myUriMatcher.match(uri)) {
 			case SINGLEROW:
 				String rowID = uri.getPathSegments().get(1);
-				selection = KEY_ID + "=" + rowID;
+				selection = KEY_WORD + "=" + rowID;
 				if (!TextUtils.isEmpty(selection)) {
 					String appendString = " and (" + selection + ")";
 					selection += appendString;
@@ -142,16 +149,13 @@ public class GameContentProvider extends ContentProvider{
 
 	private static class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
-		private static final String DATABASE_NAME = "Games.db";
-		private static final String DATABASE_TABLE = "Games";
+		private static final String DATABASE_NAME = "Dictionary.db";
+		private static final String DATABASE_TABLE = "Dictionary";
 		private static final int DATABASE_VERSION = 1;
 		
 		private static final String DATABASE_CREATE_CMD = 
 			"create table "+ DATABASE_TABLE + " (" + 
-			KEY_ID + " integer primary key autoincrement, " +  
-			KEY_OPPONENT + " string not null, " +
-			KEY_TURN + " boolean not null, " +
-			KEY_WORDS + " String not null);";
+			KEY_WORD + " string primary key not null);";
 		
 		private static final String DATABASE_DROP_CMD = 
 				"drop table if it exists " + DATABASE_TABLE;
@@ -168,7 +172,7 @@ public class GameContentProvider extends ContentProvider{
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			Log.w("GAMEPROVIDER", "Upgrading from version " + oldVersion +
+			Log.w("DICTIONARYPROVIDER", "Upgrading from version " + oldVersion +
 				" to " + newVersion + ". All data will be deleted."
 				);
 			db.execSQL(DATABASE_DROP_CMD);

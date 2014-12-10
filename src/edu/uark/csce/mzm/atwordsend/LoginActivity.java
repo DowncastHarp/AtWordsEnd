@@ -1,8 +1,15 @@
 package edu.uark.csce.mzm.atwordsend;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +23,22 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
-		//If we have login information stored in preferences then we need to automatically log in from create
+		//read in the dictionary thing oh god please work
+		Scanner sc = null;
+		ContentResolver cr = getContentResolver();
+		ContentValues values = new ContentValues();	
+		try{
+			sc = new Scanner(new File("dict.txt"));
+			while (sc.hasNextLine()) {
+				String word = sc.nextLine();
+				values.put(word, word);
+				//cr.insert(DictionaryContentProvider.CONTENT_URI, values);
+	      	}
+			sc.close();
+		}
+		catch(FileNotFoundException ex){
+			Log.w("DICTIONARYPROVIDER", "Couldn't open file dict.txt");
+		}
 	}
 
 	@Override
