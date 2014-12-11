@@ -71,11 +71,6 @@
        		android:exported="false">
         </provider>
         
-        <!--<provider android:name=".DictionaryContentProvider"
-       			android:authorities="edu.uark.csce.mzm.atwordsend.DictionaryContentProvider"
-       			android:exported="false">
-        	</provider>-->
-        
         <provider android:name=".FriendContentProvider"
        		android:authorities="edu.uark.csce.mzm.atwordsend.FriendContentProvider"
        		android:exported="false">
@@ -88,6 +83,11 @@
         
         <provider android:name=".RecievedRequestContentProvider"
        		android:authorities="edu.uark.csce.mzm.atwordsend.RecievedRequestContentProvider"
+       		android:exported="false">
+        </provider>
+            
+        <provider android:name=".DictionaryContentProvider"
+       		android:authorities="edu.uark.csce.mzm.atwordsend.DictionaryContentProvider"
        		android:exported="false">
         </provider>
     </application>

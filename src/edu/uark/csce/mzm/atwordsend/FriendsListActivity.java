@@ -1,7 +1,6 @@
 package edu.uark.csce.mzm.atwordsend;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import android.app.Activity;
 import android.app.LoaderManager;
@@ -10,8 +9,6 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
