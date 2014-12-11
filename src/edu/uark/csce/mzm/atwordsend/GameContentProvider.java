@@ -40,7 +40,7 @@ public class GameContentProvider extends ContentProvider{
 		switch (myUriMatcher.match(uri)) {
 			case SINGLEROW:
 				String rowID = uri.getLastPathSegment();
-				selection = KEY_OPPONENT + "=" + rowID;
+				selection = KEY_OPPONENT + " = " + rowID;
 				if (!TextUtils.isEmpty(selection)) {
 					String appendString = " and (" + selection + ")";
 					selection += appendString;
@@ -52,7 +52,7 @@ public class GameContentProvider extends ContentProvider{
 		if (selection == null) {
 			selection = "1";
 		}
-		selection = KEY_OPPONENT + " = '" + uri.getLastPathSegment() + "'";
+		selection = KEY_OPPONENT + " = " + uri.getLastPathSegment();
 		int deleteCount = db.delete(myOpenHelper.DATABASE_TABLE, selection, selectionArgs);
 		getContext().getContentResolver().notifyChange(uri, null);
 		return deleteCount;

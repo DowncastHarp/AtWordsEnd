@@ -108,7 +108,7 @@ public class ViewGameActivity extends Activity {
 				
 				//Delete the game from the game database
 				ContentResolver cr = getContentResolver();
-				cr.delete(GameContentProvider.CONTENT_URI.buildUpon().appendPath(opponent).build(), null, null);
+				cr.delete(GameContentProvider.CONTENT_URI.buildUpon().appendPath("'" + opponent + "'").build(), null, null);
 				
 				//Add a loss to the Player's loss count
 				//Get the number of losses against opponent
@@ -282,7 +282,7 @@ public class ViewGameActivity extends Activity {
 			//Perform the same stuff that happens when the timer runs out
 			//Delete the game from the game database
 			ContentResolver cr = getContentResolver();
-			cr.delete(GameContentProvider.CONTENT_URI.buildUpon().appendPath(opponent).build(), null, null);
+			cr.delete(GameContentProvider.CONTENT_URI.buildUpon().appendPath("'" + opponent + "'").build(), null, null);
 			
 			//Add a loss to the Player's loss count
 			//Get the number of losses against opponent

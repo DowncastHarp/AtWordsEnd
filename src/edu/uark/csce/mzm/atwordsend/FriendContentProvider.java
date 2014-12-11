@@ -40,7 +40,7 @@ public class FriendContentProvider extends ContentProvider{
 		switch (myUriMatcher.match(uri)) {
 			case SINGLEROW:
 				String rowID = uri.getLastPathSegment();
-				selection = KEY_NAME + "=" + rowID;
+				selection = KEY_NAME + " = " + rowID;
 				if (!TextUtils.isEmpty(selection)) {
 					String appendString = " and (" + selection + ")";
 					selection += appendString;
@@ -52,7 +52,7 @@ public class FriendContentProvider extends ContentProvider{
 		if (selection == null) {
 			selection = "1";
 		}
-		selection = KEY_NAME + "=" + uri.getLastPathSegment();
+		selection = KEY_NAME + " = " + uri.getLastPathSegment();
 		int deleteCount = db.delete(myOpenHelper.DATABASE_TABLE, selection, selectionArgs);
 		getContext().getContentResolver().notifyChange(uri, null);
 		return deleteCount;

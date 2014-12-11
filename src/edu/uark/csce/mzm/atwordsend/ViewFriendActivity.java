@@ -66,6 +66,7 @@ public class ViewFriendActivity extends Activity {
 
 		ContentResolver cr = getContentResolver();
 		cr.delete(FriendContentProvider.CONTENT_URI.buildUpon().appendPath("'" + friend.getName() + "'").build(), null, null);
+		cr.delete(GameContentProvider.CONTENT_URI.buildUpon().appendPath("'" + friend.getName() + "'").build(), null, null);
 		this.finish();
 	}
 	
