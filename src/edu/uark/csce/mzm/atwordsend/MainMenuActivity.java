@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 public class MainMenuActivity extends Activity {
@@ -44,10 +42,12 @@ public class MainMenuActivity extends Activity {
         startActivity(intent);
 	}
 	
+	/*
 	public void startMatchFindActivity(View v){
         Intent intent = new Intent(this, MatchFindActivity.class);
         startActivity(intent);		
 	}
+	*/
 	
 	public void startFriendsListActivity(View v){
         Intent intent = new Intent(this, FriendsListActivity.class);

@@ -55,9 +55,9 @@ public class ViewFriendActivity extends Activity {
 		
         Intent intent = new Intent(this, ViewGameActivity.class);
 
-        intent.putExtra("Opponent", friend.getName());
-        intent.putExtra("MyTurn", true);
-        intent.putExtra("UsedWords", new ArrayList<String>());
+        intent.putExtra("opponent", friend.getName());
+        intent.putExtra("myTurn", true);
+        intent.putExtra("usedWords", new ArrayList<String>());
 
         startActivity(intent);
 	}

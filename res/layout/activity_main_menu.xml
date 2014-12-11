@@ -30,16 +30,6 @@
         android:onClick="startGamesListActivity" />
 
     <Button
-        android:id="@+id/matchFindButton"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/match_find"
-        android:onClick="startMatchFindActivity" />
-
-    <Button
         android:id="@+id/friendsListButton"
         android:layout_width="150dp"
         android:layout_height="wrap_content"

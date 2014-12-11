@@ -10,8 +10,6 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -40,9 +38,9 @@ public class GamesListActivity extends Activity implements LoaderManager.LoaderC
 	    		final Game item = (Game) parent.getItemAtPosition(pos);
 
 	    		Intent intent = new Intent(GamesListActivity.this, ViewGameActivity.class);
-	    		intent.putExtra("Opponent", item.getOpponent());
+	    		intent.putExtra("opponent", item.getOpponent());
 	    		intent.putExtra("myTurn", item.getMyTurn());
-	    		intent.putExtra("Words", item.getUsedWords());
+	    		intent.putExtra("usedWords", item.getUsedWords());
 	    		startActivityForResult(intent, GAME_ACTIVITY);
 	    	}
 	    });

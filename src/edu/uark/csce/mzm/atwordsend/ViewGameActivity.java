@@ -8,18 +8,17 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.content.Loader;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.database.Cursor;
-import android.app.LoaderManager;
-import android.content.CursorLoader;
 import android.widget.Toast;
 
 public class ViewGameActivity extends Activity {
@@ -46,15 +45,19 @@ public class ViewGameActivity extends Activity {
 	private Cursor c; 
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_game);
 	
 		//Get the game information from the intent
 		Intent data = getIntent();
-		opponent = data.getStringExtra("Opponent");
-		myTurn = data.getBooleanExtra("MyTurn", false);
-		usedWords = data.getStringArrayListExtra("UsedWords");
+		opponent = data.getStringExtra("opponent");
+		myTurn = data.getBooleanExtra("myTurn", false);
+		usedWords = data.getStringArrayListExtra("usedWords");
+		//Remove a blank word if it's the last word played
+		if(!usedWords.isEmpty() && usedWords.get(0).equals("")){
+			usedWords.remove(0);
+		}
 	
 		//Create the game object from the info in the intent;
 		game = new Game(opponent, myTurn, usedWords);
@@ -73,6 +76,11 @@ public class ViewGameActivity extends Activity {
 		wordArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, usedWords);
 		usedWordsList.setAdapter(wordArrayAdapter);
 		
+		//Disable the submitButton onCreate
+		submitButton.setEnabled(false);
+		//Set the textWatcher to watch the playerWord for changes
+		playerWord.addTextChangedListener(watch);
+		
 		if(!game.getUsedWords().isEmpty()){
 			lastWordPlayedView.setText("Last Word Played: " + game.getUsedWords().get(0));
 		}
@@ -87,14 +95,6 @@ public class ViewGameActivity extends Activity {
 				
 				String millis = String.format("%03d", millisUntilFinished % 1000);
 				timer.setText(Integer.toString(seconds) + "." + millis.substring(0, 2));
-				
-				//If the there is nothing in the edit text field, disable submit button
-				if(playerWord.getText().toString().trim().length() < 3){
-					submitButton.setEnabled(false);
-				}
-				else{
-					submitButton.setEnabled(true);
-				}
 			}
 			
 			public void onFinish() {
@@ -116,8 +116,12 @@ public class ViewGameActivity extends Activity {
 			}
 		};	
 		
-		if(myTurn){
+		if(myTurn && !game.getUsedWords().isEmpty()){
 			count.start();
+		}
+		else if(!myTurn){
+			//Disable the editText
+			playerWord.setEnabled(false);
 		}
 	}
 	
@@ -172,9 +176,12 @@ public class ViewGameActivity extends Activity {
 				
 				newValues.put(GameContentProvider.KEY_OPPONENT, opponent);
 				newValues.put(GameContentProvider.KEY_TURN, false);
-				newValues.put(GameContentProvider.KEY_WORDS, "");
+				newValues.put(GameContentProvider.KEY_WORDS, usedWordsString);
 				
 				getContentResolver().insert(GameContentProvider.CONTENT_URI, newValues);
+	
+				Toast toast = Toast.makeText(getApplicationContext(), "NEW GAME INSERTED", Toast.LENGTH_SHORT);
+				toast.show();
 			}
 			//Update the existing game
 			else{
@@ -184,6 +191,9 @@ public class ViewGameActivity extends Activity {
 				newValues.put(GameContentProvider.KEY_WORDS, usedWordsString);
 				
 				cr.update(GameContentProvider.CONTENT_URI, newValues, GameContentProvider.KEY_OPPONENT + " = ?", new String[]{opponent});
+
+				Toast toast = Toast.makeText(getApplicationContext(), "EXISTING GAME UPDATED", Toast.LENGTH_SHORT);
+				toast.show();
 			}
 		}
 	}
@@ -217,7 +227,8 @@ public class ViewGameActivity extends Activity {
 			
 			else if(c.getCount() != 0){
 				//Check if the first letter of the word matches the last letter of the previous word
-				if(game.letterComparisonCheck(playedWord)){
+				// or if this is the first word in the game
+				if(game.getUsedWords().isEmpty() || game.letterComparisonCheck(playedWord)){
 					//Check if the word has been used
 					if(!game.isWordUsed(playedWord)){
 						//Word is a valid play
@@ -255,6 +266,36 @@ public class ViewGameActivity extends Activity {
 	}
 
 	public void close(View v){
+		Intent intent = new Intent("MyCustomIntent");
+        setResult(Activity.RESULT_OK, intent);
 		this.finish();
+	}
+	
+	//TextWatcher Method
+	TextWatcher watch = new TextWatcher(){
+		  @Override
+		  public void afterTextChanged(Editable arg0) {
+			  // TODO Auto-generated method stub
+			  //If the there is nothing in the edit text field, disable submit button
+			  if(playerWord.getText().toString().trim().length() < 3){
+				  submitButton.setEnabled(false);
+			  }
+			  else{
+				  submitButton.setEnabled(true);
+			  }
+		  }
+		  @Override
+		  public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+			  // TODO Auto-generated method stub
+		  }
+		  @Override
+		  public void onTextChanged(CharSequence s, int a, int b, int c) {
+			
+		  }};
+		  
+	//Disable usage of the phone's back button
+	@Override
+	public void onBackPressed(){
+		
 	}
 }
