@@ -39,7 +39,6 @@ implements LoaderManager.LoaderCallbacks<Cursor>{
 	//Variables
 	private int timeLimit = 15;
 	private Game game;
-	private int id;
 	private String opponent;
 	private boolean myTurn;
 	private ArrayList<String> usedWords;
@@ -54,13 +53,12 @@ implements LoaderManager.LoaderCallbacks<Cursor>{
 		
 		//Get the game information from the intent
 		Intent data = getIntent();
-		id = data.getIntExtra("ID", -1);
 		opponent = data.getStringExtra("Opponent");
 		myTurn = data.getBooleanExtra("MyTurn", false);
 		usedWords = data.getStringArrayListExtra("UsedWords");
 	
 		//Create the game object from the info in the intent;
-		game = new Game(id, opponent, myTurn, usedWords);
+		game = new Game(opponent, myTurn, usedWords);
 		
 		//Get the UI elements
 		submitButton = (Button)findViewById(R.id.submitButton);
@@ -147,7 +145,6 @@ implements LoaderManager.LoaderCallbacks<Cursor>{
 			ContentResolver cr = getContentResolver();
 			
 			//Add the word to the game object and used words array list
-			//usedWords.add(0, rawWord);
 			game.addWord(rawWord);
 			
 			//------------------Update UI Elements------------------
@@ -166,12 +163,12 @@ implements LoaderManager.LoaderCallbacks<Cursor>{
 				usedWordsString += game.getUsedWords().get(i) + " ";
 			}
 			//Save the game to the database
-			//ContentValues newValues = new ContentValues();
+			ContentValues newValues = new ContentValues();
 			
-			//newValues.put(GameContentProvider.KEY_TURN, !myTurn);
-			//newValues.put(GameContentProvider.KEY_WORDS, usedWordsString);
+			newValues.put(GameContentProvider.KEY_TURN, !myTurn);
+			newValues.put(GameContentProvider.KEY_WORDS, usedWordsString);
 			
-			//cr.update(GameContentProvider.CONTENT_URI, newValues, GameContentProvider.KEY_ID + " = ?", new String[]{Integer.toString(id)});
+			cr.update(GameContentProvider.CONTENT_URI, newValues, GameContentProvider.KEY_OPPONENT + " = ?", new String[]{opponent});
 		}
 	}
 	
