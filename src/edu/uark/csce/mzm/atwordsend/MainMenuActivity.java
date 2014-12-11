@@ -25,8 +25,8 @@ public class MainMenuActivity extends Activity {
 	}
 	
 	public void startGamesListActivity(View v){
-        Intent intent = new Intent(this, ViewGameActivity.class);
-		//Hard coded game object:
+        Intent intent = new Intent(this, GamesListActivity.class);
+		/*/Hard coded game object (Only works if this starts ViewGameActivity.class:
 		if(true){
 			ArrayList<String> wurds = new ArrayList<String>();
 			wurds.add(0, "Appalachian");
@@ -39,7 +39,7 @@ public class MainMenuActivity extends Activity {
 	        intent.putExtra("Opponent", "Pace Halder");
 	        intent.putExtra("MyTurn", true);
 	        intent.putExtra("UsedWords", wurds);
-		}
+		}*/
 
         startActivity(intent);
 	}
