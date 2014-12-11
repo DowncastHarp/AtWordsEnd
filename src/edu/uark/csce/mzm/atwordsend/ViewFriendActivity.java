@@ -1,5 +1,7 @@
 package edu.uark.csce.mzm.atwordsend;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -9,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ViewFriendActivity extends Activity {
 
@@ -36,7 +39,27 @@ public class ViewFriendActivity extends Activity {
 	}
 	
 	public void startGame(View v){
+
+		//Give a notification if we already have a game with this person and then do nothing
 		
+		String[] projections = {"Count(*)"};
+		String[] stringArgs = {friend.getName()};
+		
+		Cursor cursor = getContentResolver().query(GameContentProvider.CONTENT_URI, projections, GameContentProvider.KEY_OPPONENT + " = ?", stringArgs, null);
+		cursor.moveToFirst();
+		
+		if(cursor.getInt(0) > 0){
+			Toast.makeText(getApplicationContext(), "A game with this person already exists.", Toast.LENGTH_LONG).show();
+			return;
+		}
+		
+        Intent intent = new Intent(this, ViewGameActivity.class);
+
+        intent.putExtra("Opponent", friend.getName());
+        intent.putExtra("MyTurn", true);
+        intent.putExtra("UsedWords", new ArrayList<String>());
+
+        startActivity(intent);
 	}
 	
 	public void delete(View v){
