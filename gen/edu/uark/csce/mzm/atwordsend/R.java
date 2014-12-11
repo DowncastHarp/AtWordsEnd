@@ -1091,7 +1091,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
-        public static final int action_settings=0x7f050063;
+        public static final int action_settings=0x7f050065;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int addFriendButton=0x7f050040;
         public static final int addFriendEditText=0x7f05003f;
@@ -1133,14 +1133,15 @@ containing a value of this type.
         public static final int matchFindProgressBar=0x7f050052;
         public static final int middle=0x7f050012;
         public static final int never=0x7f050009;
-        public static final int noButton=0x7f050062;
+        public static final int noButton=0x7f050064;
         public static final int none=0x7f050010;
         public static final int normal=0x7f050000;
         public static final int opponentName=0x7f05005a;
+        public static final int opponentText=0x7f050060;
         public static final int passwordEditText=0x7f05004a;
         public static final int passwordTitle=0x7f050049;
         public static final int playerWordEditText=0x7f05005c;
-        public static final int popupText=0x7f050060;
+        public static final int popupText=0x7f050062;
         public static final int progress_circular=0x7f050018;
         public static final int progress_horizontal=0x7f050019;
         public static final int radio=0x7f05002f;
@@ -1172,6 +1173,7 @@ containing a value of this type.
         public static final int tabMode=0x7f050002;
         public static final int title=0x7f05002b;
         public static final int top_action_bar=0x7f050020;
+        public static final int turnText=0x7f050061;
         public static final int up=0x7f050021;
         public static final int useLogo=0x7f050003;
         public static final int usedWordsList=0x7f05005f;
@@ -1179,7 +1181,7 @@ containing a value of this type.
         public static final int usernameTitle=0x7f050047;
         public static final int viewGamesListButton=0x7f05004e;
         public static final int withText=0x7f05000c;
-        public static final int yesButton=0x7f050061;
+        public static final int yesButton=0x7f050063;
     }
     public static final class integer {
         /**  The maximum number of action buttons that should be permitted within
@@ -1241,8 +1243,9 @@ containing a value of this type.
         public static final int activity_view_friend=0x7f03001f;
         public static final int activity_view_game=0x7f030020;
         public static final int friend_view=0x7f030021;
-        public static final int popup_window_view=0x7f030022;
-        public static final int support_simple_spinner_dropdown_item=0x7f030023;
+        public static final int game_view=0x7f030022;
+        public static final int popup_window_view=0x7f030023;
+        public static final int support_simple_spinner_dropdown_item=0x7f030024;
     }
     public static final class menu {
         public static final int add_friend=0x7f0c0000;

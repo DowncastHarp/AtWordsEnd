@@ -1,8 +1,8 @@
 package edu.uark.csce.mzm.atwordsend;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,21 +21,22 @@ public class GamesAdapter extends ArrayAdapter<Game>{
 		gamesArrayList = games;
 	}
 
-	//@Override
-	//public View getView(int position, View convertView, ViewGroup parent) {
+	@SuppressLint("ViewHolder")
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
 	
-        /* Stuff from Matthew's homework1 to be used as a reference later
-
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.row, parent, false);
+        View rowView = inflater.inflate(R.layout.game_view, parent, false);
         
-        TextView labelNameView = (TextView) rowView.findViewById(R.id.labelName);
-        labelNameView.setText(workoutArrayList.get(position).getName());
+        TextView labelOpponentText = (TextView) rowView.findViewById(R.id.opponentText);
+        labelOpponentText.setText(gamesArrayList.get(position).getOpponent());
 
-		SimpleDateFormat formatDate = new SimpleDateFormat("MM/dd/yyyy");
-        TextView labelDateView = (TextView) rowView.findViewById(R.id.labelDate);
-        labelDateView.setText(formatDate.format(workoutArrayList.get(position).getDate()));
+        TextView labelTurnText = (TextView) rowView.findViewById(R.id.turnText);
+        if(gamesArrayList.get(position).getMyTurn())
+        	labelTurnText.setText("Your turn, make a move!");
+        else
+        	labelTurnText.setText("Their turn, wait a bit.");
 		
-        return rowView;*/
-	//}
+        return rowView;
+	}
 }
