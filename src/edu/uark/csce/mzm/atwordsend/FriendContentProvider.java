@@ -119,13 +119,12 @@ public class FriendContentProvider extends ContentProvider{
 
 	@SuppressWarnings("static-access")
 	@Override
-	public int update(Uri uri, ContentValues values, String selection,
-			String[] selectionArgs) {
+	public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 		SQLiteDatabase db = myOpenHelper.getWritableDatabase();
 		switch (myUriMatcher.match(uri)) {
 			case SINGLEROW:
 				String rowID = uri.getPathSegments().get(1);
-				selection = KEY_NAME + "=" + rowID;
+				selection = KEY_NAME + " = " + rowID;
 				if (!TextUtils.isEmpty(selection)) {
 					String appendString = " and (" + selection + ")";
 					selection += appendString;
@@ -134,7 +133,8 @@ public class FriendContentProvider extends ContentProvider{
 				break;
 		}
 
-		selection = KEY_NAME + "=" + uri.getLastPathSegment();
+		//I have no idea what this is doing here, but I don't think it needs to be -Mason
+		//selection = KEY_NAME + " = " + uri.getLastPathSegment();
 		int updateCount = db.update(myOpenHelper.DATABASE_TABLE, values, selection, selectionArgs);
 		getContext().getContentResolver().notifyChange(uri, null);
 		

@@ -40,6 +40,7 @@ public class ViewGameActivity extends Activity {
 	private String opponent;
 	private boolean myTurn;
 	private ArrayList<String> usedWords;
+	private boolean isRunning = false;
 	
 	//Database variables
 	private Cursor c; 
@@ -92,6 +93,7 @@ public class ViewGameActivity extends Activity {
 		count = new CountDownTimer(timeLimit * 1000, 10) {
 			public void onTick(long millisUntilFinished){
 				int seconds = (int) ((millisUntilFinished / 1000));
+				isRunning = true;
 				
 				String millis = String.format("%03d", millisUntilFinished % 1000);
 				timer.setText(Integer.toString(seconds) + "." + millis.substring(0, 2));
@@ -99,20 +101,32 @@ public class ViewGameActivity extends Activity {
 			
 			public void onFinish() {
 				//The player lost
+				isRunning = false;
 				timer.setText("YOU LOST");
+				playerWord.setEnabled(false);
 				submitButton.setEnabled(false);
 				
-				//Delete the game from the database
+				//Delete the game from the game database
 				ContentResolver cr = getContentResolver();
 				cr.delete(GameContentProvider.CONTENT_URI.buildUpon().appendPath(opponent).build(), null, null);
 				
 				//Add a loss to the Player's loss count
+				//Get the number of losses against opponent
+				String[] mmProjection = new String[]{FriendContentProvider.KEY_LOSSES};
+				String mmSelection = FriendContentProvider.KEY_NAME + " = ?";
+				String[] mmSelectionArgs = new String[]{opponent};
+				String mmSortOrder = null; 
+				//Query the Friends table to get the losses against opponent
+				Cursor c = getContentResolver().query(FriendContentProvider.CONTENT_URI, mmProjection, mmSelection, mmSelectionArgs, mmSortOrder);
+				c.moveToFirst();
+				int numLosses = c.getInt(0);
+				
 				ContentValues newValues = new ContentValues();
-				newValues.put(FriendContentProvider.KEY_LOSSES, FriendContentProvider.KEY_LOSSES + " + 1");
+				newValues.put(FriendContentProvider.KEY_LOSSES, numLosses + 1);
 				
 				String mSelection = FriendContentProvider.KEY_NAME + " = ?";
-				String[] mSelectionArgs = new String[]{FriendContentProvider.KEY_NAME + " + 1"};
-				getContentResolver().update(DictionaryContentProvider.CONTENT_URI, newValues, mSelection, mSelectionArgs);
+				String[] mSelectionArgs = new String[]{opponent};
+				getContentResolver().update(FriendContentProvider.CONTENT_URI, newValues, mSelection, mSelectionArgs);
 			}
 		};	
 		
@@ -144,6 +158,7 @@ public class ViewGameActivity extends Activity {
 			lastWordPlayedView.setText("Last Word Played: " + game.getUsedWords().get(0));
 			
 			//Cancel the countdown timer
+			isRunning = false;
 			count.cancel();
 			
 			//Disable the submitWord button
@@ -175,13 +190,10 @@ public class ViewGameActivity extends Activity {
 				ContentValues newValues = new ContentValues();
 				
 				newValues.put(GameContentProvider.KEY_OPPONENT, opponent);
-				newValues.put(GameContentProvider.KEY_TURN, false);
+				newValues.put(GameContentProvider.KEY_TURN, true);
 				newValues.put(GameContentProvider.KEY_WORDS, usedWordsString);
 				
 				getContentResolver().insert(GameContentProvider.CONTENT_URI, newValues);
-	
-				Toast toast = Toast.makeText(getApplicationContext(), "NEW GAME INSERTED", Toast.LENGTH_SHORT);
-				toast.show();
 			}
 			//Update the existing game
 			else{
@@ -191,9 +203,6 @@ public class ViewGameActivity extends Activity {
 				newValues.put(GameContentProvider.KEY_WORDS, usedWordsString);
 				
 				cr.update(GameContentProvider.CONTENT_URI, newValues, GameContentProvider.KEY_OPPONENT + " = ?", new String[]{opponent});
-
-				Toast toast = Toast.makeText(getApplicationContext(), "EXISTING GAME UPDATED", Toast.LENGTH_SHORT);
-				toast.show();
 			}
 		}
 	}
@@ -232,7 +241,7 @@ public class ViewGameActivity extends Activity {
 					//Check if the word has been used
 					if(!game.isWordUsed(playedWord)){
 						//Word is a valid play
-						Toast toast = Toast.makeText(getApplicationContext(), "\"" + rawString + "\" CONGRATULATIONS!", Toast.LENGTH_SHORT);
+						Toast toast = Toast.makeText(getApplicationContext(), "\"" + rawString + "\" successfully played", Toast.LENGTH_SHORT);
 						toast.show();
 						return true;
 					}
@@ -266,6 +275,34 @@ public class ViewGameActivity extends Activity {
 	}
 
 	public void close(View v){
+		//If the timer is still going when the back button is pushed, forfeit the match
+		if(isRunning){
+			count.cancel();
+
+			//Perform the same stuff that happens when the timer runs out
+			//Delete the game from the game database
+			ContentResolver cr = getContentResolver();
+			cr.delete(GameContentProvider.CONTENT_URI.buildUpon().appendPath(opponent).build(), null, null);
+			
+			//Add a loss to the Player's loss count
+			//Get the number of losses against opponent
+			String[] mmProjection = new String[]{FriendContentProvider.KEY_LOSSES};
+			String mmSelection = FriendContentProvider.KEY_NAME + " = ?";
+			String[] mmSelectionArgs = new String[]{opponent};
+			String mmSortOrder = null; 
+			//Query the Friends table to get the losses against opponent
+			Cursor c = getContentResolver().query(FriendContentProvider.CONTENT_URI, mmProjection, mmSelection, mmSelectionArgs, mmSortOrder);
+			c.moveToFirst();
+			int numLosses = c.getInt(0);
+			
+			ContentValues newValues = new ContentValues();
+			newValues.put(FriendContentProvider.KEY_LOSSES, numLosses + 1);
+			
+			String mSelection = FriendContentProvider.KEY_NAME + " = ?";
+			String[] mSelectionArgs = new String[]{opponent};
+			getContentResolver().update(FriendContentProvider.CONTENT_URI, newValues, mSelection, mSelectionArgs);
+		}
+		
 		Intent intent = new Intent("MyCustomIntent");
         setResult(Activity.RESULT_OK, intent);
 		this.finish();

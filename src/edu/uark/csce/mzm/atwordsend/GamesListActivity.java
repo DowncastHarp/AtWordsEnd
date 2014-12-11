@@ -25,7 +25,7 @@ public class GamesListActivity extends Activity implements LoaderManager.LoaderC
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_games_list);
-
+		
 	    games = new ArrayList<Game>();
 	    gamesAdapter = new GamesAdapter(this, android.R.layout.simple_list_item_1, games);
 		
@@ -77,7 +77,7 @@ public class GamesListActivity extends Activity implements LoaderManager.LoaderC
 		int Words_Index = data.getColumnIndexOrThrow(GameContentProvider.KEY_WORDS);
 		
 		games.clear();
-		
+        
 		while (data.moveToNext()) {
 			
 			ArrayList<String> list = new ArrayList<String>(Arrays.asList(data.getString(Words_Index).split(";")));

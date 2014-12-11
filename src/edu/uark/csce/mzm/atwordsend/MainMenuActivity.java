@@ -3,6 +3,8 @@ package edu.uark.csce.mzm.atwordsend;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,7 +18,40 @@ public class MainMenuActivity extends Activity {
 		
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+
+        /*/-------------------HARD CODE------------------------
+        //Add a game and friend to the database. If one doesn't exist already
+        //Check if the word exists in the dictionary db
+		String[] mProjection = new String[]{FriendContentProvider.KEY_NAME};
+		String mSelection = FriendContentProvider.KEY_NAME + " = ?";
+		String[] mSelectionArgs = new String[]{"Pace Halder"};
+		String mSortOrder = null;
+		
+        ContentResolver cr = getContentResolver();
+        
+		if(getContentResolver().query(FriendContentProvider.CONTENT_URI, mProjection, mSelection, mSelectionArgs, mSortOrder).getCount() == 0){
+	        ContentValues friendCV = new ContentValues();
+	        
+	        friendCV.put(FriendContentProvider.KEY_NAME, "PaceHalder");
+	        friendCV.put(FriendContentProvider.KEY_WINS, 0);
+	        friendCV.put(FriendContentProvider.KEY_LOSSES, 0);
+	        cr.insert(FriendContentProvider.CONTENT_URI, friendCV);
+		}
+		
+		mProjection = new String[]{GameContentProvider.KEY_OPPONENT};
+		mSelection = GameContentProvider.KEY_OPPONENT + " = ?";
+		mSelectionArgs = new String[]{"Pace Halder"};
+		if(getContentResolver().query(GameContentProvider.CONTENT_URI, mProjection, mSelection, mSelectionArgs, mSortOrder).getCount() == 0){
+			ContentValues gameCV = new ContentValues();
+			
+	        gameCV.put(GameContentProvider.KEY_OPPONENT, "PaceHalder");
+	        gameCV.put(GameContentProvider.KEY_TURN, true);
+	        gameCV.put(GameContentProvider.KEY_WORDS, "Raven;Savior;Emotions;Negative;Appalachian");
+	        cr.insert(GameContentProvider.CONTENT_URI, gameCV);
+		}
+        //--------------------------------------------------*/
 	}
+	
 	@Override
 	protected void onStart(){
 		super.onStart();
@@ -55,7 +90,7 @@ public class MainMenuActivity extends Activity {
 	}
 	
 	public void startSettingsActivity(View v){
-        Intent intent = new Intent(this, SettingsActivity.class);
+        Intent intent = new Intent(this, RulesActivity.class);
         startActivity(intent);		
 	}
 }

@@ -52,7 +52,7 @@ public class GameContentProvider extends ContentProvider{
 		if (selection == null) {
 			selection = "1";
 		}
-		selection = KEY_OPPONENT + "=" + uri.getLastPathSegment();
+		selection = KEY_OPPONENT + " = '" + uri.getLastPathSegment() + "'";
 		int deleteCount = db.delete(myOpenHelper.DATABASE_TABLE, selection, selectionArgs);
 		getContext().getContentResolver().notifyChange(uri, null);
 		return deleteCount;
@@ -119,13 +119,12 @@ public class GameContentProvider extends ContentProvider{
 
 	@SuppressWarnings("static-access")
 	@Override
-	public int update(Uri uri, ContentValues values, String selection,
-			String[] selectionArgs) {
+	public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 		SQLiteDatabase db = myOpenHelper.getWritableDatabase();
 		switch (myUriMatcher.match(uri)) {
 			case SINGLEROW:
 				String rowID = uri.getPathSegments().get(1);
-				selection = KEY_OPPONENT + "=" + rowID;
+				selection = KEY_OPPONENT + " = " + rowID;
 				if (!TextUtils.isEmpty(selection)) {
 					String appendString = " and (" + selection + ")";
 					selection += appendString;
