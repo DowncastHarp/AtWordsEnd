@@ -50,11 +50,6 @@
             android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
-            android:name=".MatchFindActivity"
-            android:label="@string/title_activity_match_find"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name=".ViewFriendActivity"
             android:label="@string/title_activity_view_friend"
             android:screenOrientation="portrait" >

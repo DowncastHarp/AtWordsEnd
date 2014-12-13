@@ -107,7 +107,7 @@ public class LoginActivity extends Activity {
 			bufferedReader.close();
 	        dictionaryDB.setTransactionSuccessful();	
 	        dictionaryDB.endTransaction();
-			Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
+			//Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
 		}
 		catch(IOException ex){
 			Log.w("DICTIONARYPROVIDER", "Couldn't open file dict.txt");

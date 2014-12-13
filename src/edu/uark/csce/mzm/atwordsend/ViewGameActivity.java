@@ -25,7 +25,6 @@ public class ViewGameActivity extends Activity {
 	
 	//UI Elements
 	private Button submitButton;
-	private Button backButton;
 	private TextView opponentInfo;
 	private TextView timer;
 	private TextView lastWordPlayedView;
@@ -65,7 +64,6 @@ public class ViewGameActivity extends Activity {
 		
 		//Get the UI elements
 		submitButton = (Button)findViewById(R.id.submitButton);
-		backButton = (Button)findViewById(R.id.backButton);
 		opponentInfo = (TextView)findViewById(R.id.opponentName);
 		timer = (TextView)findViewById(R.id.countdownTimer);
 		lastWordPlayedView = (TextView)findViewById(R.id.lastPlayedWordView);
@@ -328,7 +326,8 @@ public class ViewGameActivity extends Activity {
 		  @Override
 		  public void onTextChanged(CharSequence s, int a, int b, int c) {
 			
-		  }};
+		  }
+	};
 		  
 	//Disable usage of the phone's back button
 	@Override
